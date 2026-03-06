@@ -6,591 +6,124 @@
 <title>Weekly Incident Bulletin — The Language Firm</title>
 <link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,wght@0,400;0,500;0,700&family=Fraunces:ital,wght@0,600;0,700;1,400&display=swap" rel="stylesheet">
 <style>
-  :root {
-    --dark: #1B3A4B;
-    --accent: #2E75B6;
-    --light: #E8F0F8;
-    --light2: #F5F9FC;
-    --amber: #E67E22;
-    --green: #27AE60;
-    --green-bg: #D5E8D4;
-    --red: #C0392B;
-    --gray: #777777;
-    --gray-lt: #CCCCCC;
-    --body-text: #333333;
-    --bg: #F2F2F2;
-    --white: #FFFFFF;
-  }
-
-  * { margin: 0; padding: 0; box-sizing: border-box; }
-
-  body {
-    background: var(--bg);
-    font-family: 'DM Sans', -apple-system, sans-serif;
-    color: var(--body-text);
-    line-height: 1.6;
-    padding: 32px 20px;
-  }
-
-  .page-wrapper {
-    max-width: 680px;
-    margin: 0 auto;
-  }
-
-  /* Email container */
-  .email-container {
-    background: var(--white);
-    border-radius: 6px;
-    box-shadow: 0 2px 24px rgba(0,0,0,0.08);
-    overflow: hidden;
-  }
-
-  /* Layer 1: Orienting note */
-  .orienting-note {
-    padding: 28px 32px 24px;
-    border-bottom: 1px solid #eee;
-  }
-  .orienting-greeting {
-    font-size: 13px;
-    color: var(--gray);
-    margin-bottom: 12px;
-  }
-  .orienting-text {
-    font-size: 15px;
-    line-height: 1.65;
-    color: var(--body-text);
-  }
-  .orienting-text strong { color: var(--dark); }
-  .orienting-sig {
-    margin-top: 16px;
-    font-size: 14px;
-    color: var(--gray);
-    font-style: italic;
-  }
-
-  /* Masthead */
-  .masthead {
-    padding: 24px 32px 20px;
-    border-bottom: 3px solid var(--accent);
-  }
-  .masthead-label {
-    font-size: 10px;
-    font-weight: 700;
-    letter-spacing: 3px;
-    text-transform: uppercase;
-    color: var(--gray);
-  }
-  .masthead-title {
-    font-family: 'Fraunces', serif;
-    font-size: 24px;
-    font-weight: 700;
-    color: var(--dark);
-    margin: 4px 0 2px;
-  }
-  .masthead-tagline {
-    font-size: 13px;
-    color: var(--accent);
-  }
-
-  /* Issue row */
-  .issue-row {
-    display: flex;
-    justify-content: space-between;
-    padding: 10px 32px;
-    background: var(--light2);
-    font-size: 13px;
-    color: var(--dark);
-    border-bottom: 1px solid #eee;
-    flex-wrap: wrap;
-    gap: 4px;
-  }
-  .issue-row span { font-weight: 700; }
-  .issue-row em { font-style: normal; color: var(--accent); font-weight: 500; }
-
-  /* Section bars */
-  .section-bar {
-    padding: 8px 32px;
-    font-size: 12px;
-    font-weight: 700;
-    letter-spacing: 0.08em;
-    text-transform: uppercase;
-    color: var(--white);
-  }
-  .section-bar.accent { background: var(--accent); }
-  .section-bar.dark { background: var(--dark); }
-
-  /* Summary */
-  .summary {
-    padding: 20px 32px;
-    font-size: 14px;
-    line-height: 1.65;
-    border-bottom: 1px solid #eee;
-    color: var(--body-text);
-  }
-
-  /* Incident block */
-  .incident {
-    padding: 24px 32px;
-    border-bottom: 1px solid #eee;
-  }
-  .incident-header {
-    display: flex;
-    gap: 12px;
-    margin-bottom: 16px;
-    align-items: flex-start;
-  }
-  .incident-num {
-    background: var(--dark);
-    color: var(--white);
-    width: 36px;
-    height: 36px;
-    border-radius: 4px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    font-size: 17px;
-    font-weight: 700;
-    flex-shrink: 0;
-  }
-  .incident-title-block { flex: 1; }
-  .incident-title {
-    font-size: 15px;
-    font-weight: 700;
-    color: var(--dark);
-    line-height: 1.3;
-  }
-  .incident-source {
-    font-size: 12px;
-    color: var(--gray);
-    margin-top: 2px;
-  }
-
-  .field-label {
-    font-size: 10px;
-    font-weight: 700;
-    letter-spacing: 0.15em;
-    text-transform: uppercase;
-    color: var(--gray);
-    margin-bottom: 4px;
-    margin-top: 14px;
-  }
-  .field-label.red { color: var(--red); }
-
-  .incident-field {
-    font-size: 14px;
-    line-height: 1.65;
-    color: #444;
-  }
-  .incident-field strong { color: var(--dark); }
-
-  .action-box {
-    background: var(--green-bg);
-    border-left: 4px solid var(--green);
-    padding: 12px 16px;
-    margin-top: 14px;
-    font-size: 14px;
-    line-height: 1.65;
-    font-weight: 600;
-    color: var(--dark);
-  }
-  .action-box .action-label {
-    font-size: 10px;
-    font-weight: 700;
-    letter-spacing: 0.15em;
-    text-transform: uppercase;
-    color: #1E8449;
-    margin-bottom: 5px;
-  }
-
-  .workflow-tag {
-    background: #FFF8E1;
-    border-left: 4px solid var(--amber);
-    padding: 10px 16px;
-    margin-top: 10px;
-    font-size: 13px;
-    color: #555;
-    line-height: 1.5;
-  }
-  .workflow-tag .workflow-label {
-    font-size: 10px;
-    font-weight: 700;
-    letter-spacing: 0.15em;
-    text-transform: uppercase;
-    color: var(--amber);
-    margin-bottom: 4px;
-  }
-
-  /* Supporting sections */
-  .support-section {
-    padding: 20px 32px;
-    font-size: 14px;
-    line-height: 1.65;
-    border-bottom: 1px solid #eee;
-    color: var(--body-text);
-  }
-  .support-section p { margin-bottom: 10px; }
-  .support-section p:last-child { margin-bottom: 0; }
-  .support-section strong { color: var(--dark); }
-
-  /* Policy item */
-  .policy-item {
-    padding-left: 12px;
-    border-left: 2px solid var(--gray-lt);
-    margin-bottom: 14px;
-  }
-  .policy-item:last-child { margin-bottom: 0; }
-  .policy-action {
-    font-size: 13px;
-    font-weight: 600;
-    color: var(--dark);
-    margin-top: 4px;
-  }
-
-  /* By the numbers */
-  .stat-block {
-    background: var(--light);
-    padding: 32px;
-    text-align: center;
-    border-bottom: 1px solid #eee;
-  }
-  .stat-number {
-    font-family: 'Fraunces', serif;
-    font-size: 42px;
-    font-weight: 700;
-    color: var(--dark);
-    line-height: 1;
-  }
-  .stat-label {
-    font-size: 10px;
-    font-weight: 700;
-    letter-spacing: 0.2em;
-    text-transform: uppercase;
-    color: var(--gray);
-    margin: 6px 0 10px;
-  }
-  .stat-context {
-    font-size: 14px;
-    color: #555;
-    max-width: 500px;
-    margin: 0 auto;
-    line-height: 1.6;
-  }
-
-  /* References */
-  .references {
-    padding: 20px 32px;
-    border-bottom: 1px solid #eee;
-  }
-  .ref-incident-title {
-    font-size: 12px;
-    font-weight: 700;
-    color: #555;
-    margin-bottom: 4px;
-    margin-top: 12px;
-  }
-  .ref-incident-title:first-child { margin-top: 0; }
-  .ref-citation {
-    font-size: 12px;
-    color: #777;
-    padding-left: 12px;
-    line-height: 1.6;
-    margin-bottom: 2px;
-  }
-  .ref-citation a { color: var(--accent); }
-
-  /* Reply line */
-  .reply-line {
-    padding: 20px 32px;
-    border-top: 3px solid var(--accent);
-    font-size: 14px;
-    font-weight: 700;
-    color: var(--dark);
-  }
-
-  /* Footer */
-  .email-footer {
-    padding: 24px 32px;
-    background: var(--light2);
-    border-top: 1px solid #eee;
-  }
-  .footer-about {
-    font-size: 13px;
-    color: var(--gray);
-    margin-bottom: 16px;
-    line-height: 1.6;
-  }
-  .footer-upsell {
-    font-size: 13px;
-    line-height: 1.65;
-    margin-bottom: 16px;
-    padding: 14px 16px;
-    background: var(--white);
-    border: 1px solid #e0e0e0;
-    border-radius: 4px;
-  }
-  .footer-upsell strong { color: var(--dark); }
-  .footer-upsell a { color: var(--accent); text-decoration: none; font-weight: 500; }
-  .footer-share {
-    font-size: 13px;
-    color: var(--gray);
-    margin-bottom: 16px;
-    line-height: 1.6;
-  }
-  .footer-share a { color: var(--accent); text-decoration: none; font-weight: 500; }
-  .footer-legal {
-    font-size: 11px;
-    color: #aaa;
-    padding-top: 12px;
-    border-top: 1px solid #e0e0e0;
-    line-height: 1.6;
-  }
-  .footer-legal a { color: var(--accent); text-decoration: none; }
-
-  /* Subscribe CTA banner */
-  .subscribe-banner {
-    background: var(--dark);
-    padding: 20px 32px;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    gap: 16px;
-    flex-wrap: wrap;
-  }
-  .subscribe-banner p {
-    font-size: 14px;
-    color: rgba(255,255,255,0.8);
-    margin: 0;
-    flex: 1;
-    min-width: 200px;
-  }
-  .subscribe-banner strong { color: #fff; }
-  .subscribe-btn {
-    background: var(--accent);
-    color: #fff;
-    font-family: 'DM Sans', sans-serif;
-    font-size: 13px;
-    font-weight: 700;
-    letter-spacing: 0.05em;
-    text-transform: uppercase;
-    padding: 10px 22px;
-    text-decoration: none;
-    border-radius: 2px;
-    white-space: nowrap;
-    flex-shrink: 0;
-  }
-  .subscribe-btn:hover { background: #1a5490; }
-
-  @media (max-width: 600px) {
-    body { padding: 16px 12px; }
-    .orienting-note, .masthead, .incident, .support-section,
-    .references, .reply-line, .email-footer, .stat-block,
-    .subscribe-banner { padding-left: 20px; padding-right: 20px; }
-    .issue-row, .section-bar { padding-left: 20px; padding-right: 20px; }
-    .incident-num { display: none; }
-    .stat-number { font-size: 32px; }
-  }
+:root{--dark:#1B3A4B;--accent:#2E75B6;--light:#E8F0F8;--light2:#F5F9FC;--amber:#E67E22;--green:#27AE60;--green-bg:#D5E8D4;--red:#C0392B;--gray:#777;--gray-lt:#CCC;--body-text:#333;--bg:#F2F2F2;--white:#FFF;}
+*{margin:0;padding:0;box-sizing:border-box;}
+body{background:var(--bg);font-family:'DM Sans',-apple-system,sans-serif;color:var(--body-text);line-height:1.6;padding:32px 20px;}
+.page-wrapper{max-width:680px;margin:0 auto;}
+.email-container{background:var(--white);border-radius:6px;box-shadow:0 2px 24px rgba(0,0,0,0.08);overflow:hidden;}
+.masthead{padding:24px 32px 20px;border-bottom:3px solid var(--accent);}
+.masthead-label{font-size:10px;font-weight:700;letter-spacing:3px;text-transform:uppercase;color:var(--gray);}
+.masthead-title{font-family:'Fraunces',serif;font-size:24px;font-weight:700;color:var(--dark);margin:4px 0 2px;}
+.masthead-tagline{font-size:13px;color:var(--accent);}
+.issue-row{display:flex;justify-content:space-between;padding:10px 32px;background:var(--light2);font-size:13px;color:var(--dark);border-bottom:1px solid #eee;flex-wrap:wrap;gap:4px;}
+.issue-row span{font-weight:700;}.issue-row em{font-style:normal;color:var(--accent);font-weight:500;}
+.section-bar{padding:8px 32px;font-size:12px;font-weight:700;letter-spacing:0.08em;text-transform:uppercase;color:var(--white);}
+.section-bar.accent{background:var(--accent);}.section-bar.dark{background:var(--dark);}
+.summary{padding:20px 32px;font-size:14px;line-height:1.65;border-bottom:1px solid #eee;color:var(--body-text);}
+.incident{padding:24px 32px;border-bottom:1px solid #eee;}
+.incident-header{display:flex;gap:12px;margin-bottom:16px;align-items:flex-start;}
+.incident-num{background:var(--dark);color:var(--white);width:36px;height:36px;border-radius:4px;display:flex;align-items:center;justify-content:center;font-size:17px;font-weight:700;flex-shrink:0;}
+.incident-title-block{flex:1;}
+.incident-title{font-size:15px;font-weight:700;color:var(--dark);line-height:1.3;}
+.incident-source{font-size:12px;color:var(--gray);margin-top:2px;}
+.field-label{font-size:10px;font-weight:700;letter-spacing:0.15em;text-transform:uppercase;color:var(--gray);margin-bottom:4px;margin-top:14px;}
+.field-label.red{color:var(--red);}
+.incident-field{font-size:14px;line-height:1.65;color:#444;word-break:break-word;}
+.action-box{background:var(--green-bg);border-left:4px solid var(--green);padding:12px 16px;margin-top:14px;font-size:14px;line-height:1.65;font-weight:600;color:var(--dark);word-break:break-word;}
+.action-label{font-size:10px;font-weight:700;letter-spacing:0.15em;text-transform:uppercase;color:#1E8449;margin-bottom:5px;}
+.workflow-tag{background:#FFF8E1;border-left:4px solid var(--amber);padding:10px 16px;margin-top:10px;font-size:13px;color:#555;line-height:1.5;word-break:break-word;}
+.workflow-label{font-size:10px;font-weight:700;letter-spacing:0.15em;text-transform:uppercase;color:var(--amber);margin-bottom:4px;}
+.support-section{padding:20px 32px;font-size:14px;line-height:1.65;border-bottom:1px solid #eee;color:var(--body-text);}
+.support-section p{margin-bottom:10px;}.support-section p:last-child{margin-bottom:0;}
+.support-section strong{color:var(--dark);}
+.policy-item{padding-left:12px;border-left:2px solid var(--gray-lt);margin-bottom:14px;}
+.policy-item:last-child{margin-bottom:0;}
+.policy-action{font-size:13px;font-weight:600;color:var(--dark);margin-top:4px;}
+.stat-block{background:var(--light);padding:32px;text-align:center;border-bottom:1px solid #eee;}
+.stat-number{font-family:'Fraunces',serif;font-size:42px;font-weight:700;color:var(--dark);line-height:1;}
+.stat-label{font-size:10px;font-weight:700;letter-spacing:0.2em;text-transform:uppercase;color:var(--gray);margin:6px 0 10px;}
+.stat-context{font-size:14px;color:#555;max-width:500px;margin:0 auto;line-height:1.6;}
+.references{padding:20px 32px;border-bottom:1px solid #eee;}
+.ref-incident-title{font-size:12px;font-weight:700;color:#555;margin-bottom:4px;margin-top:12px;}
+.ref-incident-title:first-child{margin-top:0;}
+.ref-citation{font-size:12px;color:#777;padding-left:12px;line-height:1.6;margin-bottom:2px;word-break:break-word;}
+.ref-citation a{color:var(--accent);}
+.reply-line{padding:20px 32px;border-top:3px solid var(--accent);font-size:14px;font-weight:700;color:var(--dark);}
+.reply-line a{color:var(--accent);}
+.email-footer{padding:24px 32px;background:var(--light2);border-top:1px solid #eee;}
+.footer-about{font-size:13px;color:var(--gray);margin-bottom:16px;line-height:1.6;}
+.footer-upsell{font-size:13px;line-height:1.65;margin-bottom:16px;padding:14px 16px;background:var(--white);border:1px solid #e0e0e0;border-radius:4px;}
+.footer-upsell strong{color:var(--dark);}
+.footer-legal{font-size:11px;color:#aaa;padding-top:12px;border-top:1px solid #e0e0e0;line-height:1.6;}
+.footer-legal a{color:var(--accent);text-decoration:none;}
+@media(max-width:600px){body{padding:16px 12px;}.masthead,.incident,.support-section,.references,.reply-line,.email-footer,.stat-block{padding-left:20px;padding-right:20px;}.issue-row,.section-bar{padding-left:20px;padding-right:20px;}.incident-num{display:none;}.stat-number{font-size:32px;}}
 </style>
 </head>
 <body>
-
-<div class="page-wrapper">
-<div class="email-container">
-
-  <!-- ═══════════════════════ -->
-  <!-- MASTHEAD               -->
-  <!-- ═══════════════════════ -->
+<div class="page-wrapper"><div class="email-container">
   <div class="masthead">
     <div class="masthead-label">The Language Firm</div>
     <div class="masthead-title">Weekly Incident Bulletin</div>
     <div class="masthead-tagline">K-12 Technology &amp; AI Risk Intelligence</div>
   </div>
-
   <div class="issue-row">
     <div><span>Issue:</span> <em>001</em></div>
-    <div><span>Week of:</span> <em>March 3, 2026</em></div>
+    <div><span>Week of:</span> <em>Week of March 2, 2026</em></div>
     <div><span>Incidents:</span> <em>3</em></div>
   </div>
-
-  <!-- ═══════════════════════ -->
-  <!-- LAYER 1: YOUR VOICE    -->
-  <!-- ═══════════════════════ -->
-  <div class="orienting-note">
-    <div class="orienting-greeting">Issue 001 &nbsp;·&nbsp; Week of March 3, 2026</div>
-    <div class="orienting-text">
-      This week, three incidents that all point to the same gap: <strong>districts are adopting AI faster than they are documenting their governance of it.</strong> The LAUSD federal probe is the headline, but the Adobe elementary school incident is the one I'd flag for your tech coordinator today — if your district uses any student-facing AI tool and doesn't have a written output review policy, that's your action item this week.
-    </div>
-    <div class="orienting-sig">— The Language Firm</div>
-  </div>
-
-  <!-- ═══════════════════════ -->
-  <!-- SUMMARY                -->
-  <!-- ═══════════════════════ -->
   <div class="section-bar accent">This Week's Summary</div>
-  <div class="summary">
-    This week's incidents center on a common theme: the gap between AI tool adoption speed and institutional oversight capacity. An LAUSD federal probe highlights procurement accountability for AI contracts, an Adobe AI image generation incident exposes the risk of deploying student-facing AI without output review policies, and a Pennsylvania district's handling of AI-generated deepfakes raises questions about incident response documentation.
-  </div>
-
-  <!-- ═══════════════════════ -->
-  <!-- INCIDENTS              -->
-  <!-- ═══════════════════════ -->
+  <div class="summary">This week highlights three converging threats: inappropriate AI-generated content reaching elementary students through vetted tools, AI-enhanced phishing attacks bypassing existing security training, and the ongoing fallout from the PowerSchool breach now confirmed as the largest student data breach in U.S. history. Each incident creates immediate documentation and policy review requirements.</div>
   <div class="section-bar dark">Incidents</div>
-
-  <!-- INCIDENT 1 -->
-  <div class="incident">
-    <div class="incident-header">
-      <div class="incident-num">1</div>
-      <div class="incident-title-block">
-        <div class="incident-title">FBI Searches LAUSD Superintendent's Home Over AI Contract</div>
-        <div class="incident-source">KTLA / CalMatters &nbsp;&middot;&nbsp; February 26, 2026</div>
+  
+      <div class="incident">
+        <div class="incident-header">
+          <div class="incident-num">1</div>
+          <div class="incident-title-block">
+            <div class="incident-title">AI phishing attacks bypass traditional email security training in K-12 districts</div>
+            <div class="incident-source">EdTech Magazine &middot; February 2026</div>
+          </div>
+        </div>
+        <div class="field-label">What happened</div><div class="incident-field">Generative AI has fundamentally changed phishing threats by dramatically increasing both speed and scale of attacks targeting school systems. Traditional security awareness training is proving insufficient against AI-enhanced social engineering tactics that mimic legitimate district communications.</div>
+        <div class="field-label">Who's affected</div><div class="incident-field">All districts relying on email security protocols developed before 2024. Particularly affects districts without AI-aware phishing detection tools or updated staff training on AI-generated threats.</div>
+        <div class="field-label red">Compliance Exposure</div><div class="incident-field">FERPA auditors will look for documented security incident logs showing detection methods. Districts must show they've updated Acceptable Use Policies and data breach response plans to address AI-generated attacks. Cybersecurity insurance may deny claims if policies haven't been updated to address known AI phishing risks.</div>
+        <div class="action-box"><div class="action-label">Recommended Action</div>This week: Pull last 90 days of email security logs. Document any suspected AI-generated phishing attempts. Schedule emergency IT meeting to review current filtering tools' AI detection capabilities. Flag for legal review: Does your cyber insurance policy explicitly cover AI-generated attacks?</div>
+        <div class="workflow-tag"><div class="workflow-label">Workflow Impact</div>Security &amp; Infrastructure: Review email filtering contracts and staff security training modules for AI threat coverage</div>
       </div>
-    </div>
-    <div class="field-label">What happened</div>
-    <div class="incident-field">FBI agents executed search warrants at the home and office of LAUSD Superintendent Alberto Carvalho. Reporting indicates the investigation is connected to a multimillion-dollar contract between LAUSD and AllHere, a now-defunct AI startup that developed a chatbot called "Ed." The probe appears focused on the superintendent personally, not the district.</div>
-    <div class="field-label">Who's affected</div>
-    <div class="incident-field">LAUSD directly. All districts that have contracted with AI startups or sole-source vendors for AI-powered student-facing tools. Particular concern for districts that fast-tracked AI contracts during 2023–2024 without standard procurement review.</div>
-    <div class="field-label red">Compliance Exposure</div>
-    <div class="incident-field">This incident surfaces procurement documentation risk. If your district awarded an AI tool contract, a federal monitor or state reviewer could ask: Was the contract competitively bid? Was the vendor's financial viability assessed? Was there a DPA in place before student data was shared? Is there documentation of board approval?</div>
-    <div class="action-box">
-      <div class="action-label">Recommended Action</div>
-      Pull your district's AI-related contracts from the past two years. For each one, verify: (1) procurement method is documented, (2) a signed DPA exists, (3) board approval is on record, and (4) the vendor is still operational. If any contract lacks these four items, flag it for your superintendent and legal counsel this week.
-    </div>
-    <div class="workflow-tag">
-      <div class="workflow-label">Workflow Impact</div>
-      Compliance &amp; Reporting — Review AI tool procurement documentation. Confirm contract files include DPA, board approval, and vendor viability records.
-    </div>
-  </div>
-
-  <!-- INCIDENT 2 -->
-  <div class="incident">
-    <div class="incident-header">
-      <div class="incident-num">2</div>
-      <div class="incident-title-block">
-        <div class="incident-title">Adobe Express AI Tool Generates Inappropriate Images in LA Elementary School</div>
-        <div class="incident-source">EdSurge &nbsp;&middot;&nbsp; February 28, 2026</div>
+      <div class="incident">
+        <div class="incident-header">
+          <div class="incident-num">2</div>
+          <div class="incident-title-block">
+            <div class="incident-title">Adobe Express for Education generated sexualized images for elementary students in California</div>
+            <div class="incident-source">CalMatters &middot; February 26, 2026</div>
+          </div>
+        </div>
+        <div class="field-label">What happened</div><div class="incident-field">Adobe's AI tool, accessed through the Schoology learning management system for a 4th grade book project, generated inappropriate sexualized images in response to student prompts. The incident occurred as California released new state guidelines for AI safety in schools.</div>
+        <div class="field-label">Who's affected</div><div class="incident-field">All districts using Adobe Express for Education or similar AI content generation tools in K-5 settings. Specifically impacts LAUSD and any district that approved Adobe tools through Schoology integration without separate AI content filter review.</div>
+        <div class="field-label red">Compliance Exposure</div><div class="incident-field">CIPA requires districts to block harmful content to minors. AI-generated content may bypass traditional filtering. Auditors will ask: When was the tool vetted? Who approved it? What content filter testing occurred? Does the vendor agreement include liability for AI-generated inappropriate content? Title IX coordinators may investigate if students were exposed to sexual content in school-provided technology.</div>
+        <div class="action-box"><div class="action-label">Recommended Action</div>Immediate: Pull list of all AI content generation tools accessible through your LMS. Verify each has child safety filters distinct from general content moderation. Test with grade-level appropriate prompts. Document results. Send vendor inquiry to Adobe and any similar tools: 'What child safety filters are active? How are they tested? What is our liability under our agreement if inappropriate content is generated?' Pause elementary access to AI generation tools until written vendor responses received.</div>
+        <div class="workflow-tag"><div class="workflow-label">Workflow Impact</div>Instructional Technology: Emergency review of all LMS-integrated AI tools for child safety filter documentation and testing protocols</div>
       </div>
-    </div>
-    <div class="field-label">What happened</div>
-    <div class="incident-field">An AI image generation feature in Adobe Express produced inappropriate content when used by elementary students in a Los Angeles school. The incident surfaced after a teacher reported the output to district IT. Adobe has since updated its content moderation settings, but the default configuration at the time allowed the generation to proceed.</div>
-    <div class="field-label">Who's affected</div>
-    <div class="incident-field">All districts using Adobe Express for Education, particularly those with elementary or middle school deployments. Districts that enabled AI features without reviewing content moderation settings are most exposed.</div>
-    <div class="field-label red">Compliance Exposure</div>
-    <div class="incident-field">Districts have a duty of care obligation when deploying AI tools with student-facing generative features. If a parent or state reviewer asks whether content moderation was reviewed before deployment, what documentation exists? Was the tool on your approved list before it was assigned to students?</div>
-    <div class="action-box">
-      <div class="action-label">Recommended Action</div>
-      Log into your Adobe Express for Education admin console this week. Confirm content moderation is set to maximum restriction for student accounts. Document the setting, the date you checked it, and who verified it. Add Adobe Express to your next tool review cycle.
-    </div>
-    <div class="workflow-tag">
-      <div class="workflow-label">Workflow Impact</div>
-      Instructional Technology — Review AI feature settings for all student-facing creative tools. Confirm content moderation policies are documented and current.
-    </div>
-  </div>
-
-  <!-- INCIDENT 3 -->
-  <div class="incident">
-    <div class="incident-header">
-      <div class="incident-num">3</div>
-      <div class="incident-title-block">
-        <div class="incident-title">Pennsylvania District Faces Questions Over AI Deepfake Incident Response</div>
-        <div class="incident-source">The74 &nbsp;&middot;&nbsp; March 1, 2026</div>
+      <div class="incident">
+        <div class="incident-header">
+          <div class="incident-num">3</div>
+          <div class="incident-title-block">
+            <div class="incident-title">PowerSchool breach confirmed as largest student data breach in U.S. history: 62M student records exposed</div>
+            <div class="incident-source">TechPolicy.Press &middot; February 2026</div>
+          </div>
+        </div>
+        <div class="field-label">What happened</div><div class="incident-field">PowerSchool detected unauthorized access in December 2024 affecting 16,000 schools. By January 2025, confirmed exfiltration included over 62 million student records and nearly 10 million teacher records. Full scope and notification timeline continues through February 2026.</div>
+        <div class="field-label">Who's affected</div><div class="incident-field">Any district using PowerSchool Student Information System between December 2024 and breach remediation. Particularly affects districts that haven't completed required breach notifications to families or documented their response for federal compliance reviews.</div>
+        <div class="field-label red">Compliance Exposure</div><div class="incident-field">FERPA requires districts to document breach response even when vendor is at fault. State breach notification laws (vary by state) require parent notification within specific timeframes. OCR may audit: When did you learn of breach? When did you notify families? What documentation exists of your vendor oversight? What alternative access controls were implemented? Did breach affect IEP/504 records (IDEA) or ELL records (Title III)?</div>
+        <div class="action-box"><div class="action-label">Recommended Action</div>If you use PowerSchool: Pull all breach notification documentation sent to families. Create folder with: (1) Timeline of when district learned of breach, (2) Copies of all parent notifications sent, (3) Vendor communications, (4) Board meeting minutes where breach was discussed, (5) Any credit monitoring offered. If you haven't notified families yet and breach affects your instance: Legal counsel required this week. If you don't use PowerSchool: Document in your SIS vendor contract file 'PowerSchool breach February 2026' as justification for enhanced vendor security review in next contract cycle.</div>
+        <div class="workflow-tag"><div class="workflow-label">Workflow Impact</div>Student Data Privacy: Compile complete breach response documentation file for potential OCR audit of vendor oversight and parent notification compliance</div>
       </div>
-    </div>
-    <div class="field-label">What happened</div>
-    <div class="incident-field">A Pennsylvania school district is under scrutiny after AI-generated deepfake images of students circulated among peers. Questions have been raised not about the incident itself — which was handled by administrators — but about whether the district had a documented response protocol in place before it happened, and whether the response was consistent with existing student privacy policies.</div>
-    <div class="field-label">Who's affected</div>
-    <div class="incident-field">All K-12 districts. Deepfake incidents involving students are no longer rare. Any district without a documented AI-generated content incident response protocol has a documentation gap regardless of whether an incident has occurred.</div>
-    <div class="field-label red">Compliance Exposure</div>
-    <div class="incident-field">If your district faces a similar incident, a state reviewer or parent attorney could ask: Did your acceptable use policy address AI-generated content before this happened? Was there a documented escalation path? Were student privacy obligations followed in the response? The absence of a pre-existing protocol is itself the finding.</div>
-    <div class="action-box">
-      <div class="action-label">Recommended Action</div>
-      Check your current acceptable use policy for any mention of AI-generated content or deepfakes. If it's absent, flag it for your next policy review and add an interim guidance memo to student and staff handbooks. Assign ownership of the protocol to a specific role — not just "administration."
-    </div>
-    <div class="workflow-tag">
-      <div class="workflow-label">Workflow Impact</div>
-      Student Data Privacy — Review acceptable use policy for AI-generated content coverage. Confirm incident response protocol exists and is assigned to a named role.
-    </div>
-  </div>
-
-  <!-- ═══════════════════════ -->
-  <!-- POLICY WATCH           -->
-  <!-- ═══════════════════════ -->
-  <div class="section-bar accent">Policy Watch</div>
-  <div class="support-section">
-    <div class="policy-item">
-      <p><strong>California AI Guidelines Updated:</strong> The California Department of Education released updated AI guidelines for schools, developed with input from 50 teachers, administrators, and experts. Specific policy recommendations are expected by July 2026.</p>
-      <p class="policy-action">No action required yet, but California districts should begin reviewing now.</p>
-    </div>
-    <div class="policy-item">
-      <p><strong>PowerSchool Breach Extortion Continues:</strong> Despite paying a ransom following the December 2024 breach affecting 62 million students, threat actors are still contacting districts with extortion attempts. The situation remains active.</p>
-      <p class="policy-action">Begin reviewing your vendor DPA and confirm your incident response log is current.</p>
-    </div>
-  </div>
-
-  <!-- ═══════════════════════ -->
-  <!-- TOOL ALERTS            -->
-  <!-- ═══════════════════════ -->
-  <div class="section-bar accent">Tool Alerts</div>
-  <div class="support-section">
-    <p><strong>Adobe Express for Education</strong> — Content moderation settings updated following the LA elementary incident. All district admins should verify settings have been refreshed in their console. See Tool Vault card for full review.</p>
-    <p><strong>MagicSchool AI</strong> — Now offers district-level custom tool approval controls in the Enterprise tier. Workflow Fit rating under review for update.</p>
-    <p><strong>PowerSchool</strong> — Extortion attempts ongoing following December breach. Confirm your district's breach response documentation is complete and filed.</p>
-  </div>
-
-  <!-- ═══════════════════════ -->
-  <!-- BY THE NUMBERS         -->
-  <!-- ═══════════════════════ -->
-  <div class="section-bar dark">By the Numbers</div>
-  <div class="stat-block">
-    <div class="stat-number">62.4 million</div>
-    <div class="stat-label">By the Numbers</div>
-    <div class="stat-context">Students whose personal information was compromised in the PowerSchool breach — the largest known breach of children's data in U.S. history. If your district uses PowerSchool, confirm your breach response documentation is complete.</div>
-  </div>
-
-  <!-- ═══════════════════════ -->
-  <!-- REFERENCES             -->
-  <!-- ═══════════════════════ -->
-  <div class="section-bar accent">References</div>
-  <div class="references">
-    <div class="ref-incident-title">FBI Searches LAUSD Superintendent's Home Over AI Contract</div>
-    <div class="ref-citation">[1] KTLA. "FBI searches home of LAUSD superintendent in federal investigation." February 26, 2026.</div>
-    <div class="ref-citation">[2] CalMatters. "What we know about the FBI investigation into LAUSD's AI contract." February 27, 2026.</div>
-
-    <div class="ref-incident-title">Adobe Express AI Tool Generates Inappropriate Images in LA Elementary School</div>
-    <div class="ref-citation">[3] EdSurge. "Adobe Express AI generated inappropriate content at an LA elementary school." February 28, 2026.</div>
-
-    <div class="ref-incident-title">Pennsylvania District Faces Questions Over AI Deepfake Incident Response</div>
-    <div class="ref-citation">[4] The 74. "Pennsylvania district scrutinized over deepfake response protocol." March 1, 2026.</div>
-
-    <div class="ref-incident-title">Policy Watch &amp; By the Numbers</div>
-    <div class="ref-citation">[5] California Department of Education. "AI Guidelines for California Schools." February 2026.</div>
-    <div class="ref-citation">[6] EdWeek. "PowerSchool breach extortion attempts continue months after ransom payment." February 2026.</div>
-  </div>
-
-  <!-- REPLY LINE -->
-  <div class="reply-line">
-    Questions about any incident in this bulletin? <a href="mailto:jcs@thelanguagefirm.org" style="color: var(--accent);">Get in touch.</a>
-  </div>
-
-  <!-- ═══════════════════════ -->
-  <!-- FOOTER                 -->
-  <!-- ═══════════════════════ -->
+  <div class="section-bar accent">Policy Watch</div><div class="support-section"><div class="policy-item"><p>California released new state guidelines for AI safety in schools in February 2026, directly responding to the Adobe incident. Guidelines address AI content generation tools used by minors and likely preview requirements that will appear in other states' legislative sessions through spring 2026.</p><p class="policy-action">Begin reviewing: Pull current AI tool approval process. Compare against California's new guidelines even if you're out-of-state—these often become national compliance baseline.</p></div><div class="policy-item"><p>Anti-screentime movement expanding scope to treat educational technology with same regulatory scrutiny as consumer social media. EdTech products using AI with minors may face California consumer protection regulations in addition to education-specific rules.</p><p class="policy-action">No immediate action required. Monitor for state bills introduced in your legislature that reference 'screentime limits' or 'social media age verification'—these may inadvertently include educational tools in scope.</p></div></div><div class="section-bar accent">Tool Alerts</div><div class="support-section"><p><strong>Adobe Express for Education</strong> — Content safety concerns raised after sexualized AI-generated images reached elementary students. Districts should verify child safety filters are active and documented before continued elementary use.</p><p><strong>PowerSchool Student Information System</strong> — Ongoing breach disclosure confirmed as largest student data breach in U.S. history. Review vendor communications for your instance and ensure breach notification documentation is complete.</p></div><div class="section-bar dark">By the Numbers</div><div class="stat-block"><div class="stat-number">62 million student records compromised in PowerSchool breach</div><div class="stat-label">By the Numbers</div><div class="stat-context">This represents roughly 1 in every 10 U.S. public school students—making vendor security oversight and breach response documentation a likely focus of upcoming federal compliance reviews.</div></div><div class="section-bar accent">References</div><div class="references"><div class="ref-incident-title">AI phishing attacks bypass traditional email security training in K-12 districts</div><div class="ref-citation">[1] EdTech Magazine. &ldquo;AI-Driven Phishing Is Putting K–12 Schools at Risk.&rdquo; February 2026. <a href="https://edtechmagazine.com/k12/article/2026/02/ai-driven-phishing-putting-k-12-schools-risk">https://edtechmagazine.com/k12/article/2026/02/ai-driven-phishing-putting-k-12-schools-risk</a></div><div class="ref-incident-title">Adobe Express for Education generated sexualized images for elementary students in California</div><div class="ref-citation">[1] CalMatters. &ldquo;AI images scandalized a California elementary school. Now the state is pushing new safeguards.&rdquo; February 26, 2026. <a href="https://calmatters.org/economy/technology/2026/02/ai-images-scandalized-a-california-elementary-school-now-the-state-is-pushing-new-safeguards/">https://calmatters.org/economy/technology/2026/02/ai-images-scandalized-a-california-elementary-school-now-the-state-is-pushing-new-safeguards/</a></div><div class="ref-citation">[2] Daily Caller. &ldquo;California Kids Served X-Rated Images From Supposedly Safe AI Tool.&rdquo; March 4, 2026. <a href="https://dailycaller.com/2026/03/04/california-ai-schools-elementary-lausd/">https://dailycaller.com/2026/03/04/california-ai-schools-elementary-lausd/</a></div><div class="ref-incident-title">PowerSchool breach confirmed as largest student data breach in U.S. history: 62M student records exposed</div><div class="ref-citation">[1] TechPolicy.Press. &ldquo;Unmasking EdTech's Surveillance Infrastructure in the Age of AI.&rdquo; February 2026. <a href="https://www.techpolicy.press/unmasking-edtechs-surveillance-infrastructure-in-the-age-of-ai/">https://www.techpolicy.press/unmasking-edtechs-surveillance-infrastructure-in-the-age-of-ai/</a></div></div>
+  <div class="reply-line">Questions about any incident in this bulletin? <a href="mailto:jcs@thelanguagefirm.org">Get in touch.</a></div>
   <div class="email-footer">
-    <div class="footer-about">
-      <strong style="color: #1B3A4B;">The Weekly Incident Bulletin</strong> is published every Thursday by The Language Firm. 3–5 K-12 AI and technology incidents with compliance analysis, recommended actions, and workflow impact tags. Built for administrators, tech coordinators, and compliance leaders.
-    </div>
-    <div class="footer-upsell">
-      <strong>Want more?</strong><br>
-      Tool Vault — Full AI tool reviews with Workflow Fit ratings and staff time impact analysis.<br>
-      Quarterly AI Briefing — Deep-dive analysis of trends, policy shifts, and what they mean for your district.<br>
-      EWA Diagnostic — Workflow automation assessment for your school organization, remote or on-site.
-    </div>
-    <div class="footer-share">
-      <strong style="color: #1B3A4B;">Know someone who should be reading this?</strong><br>
-      Forward this page, or <a href="#">share the link</a>.
-    </div>
-    <div class="footer-legal">
-      <a href="https://languagefirm.org">languagefirm.org</a> &nbsp;·&nbsp; &copy; The Language Firm. All rights reserved.
-    </div>
+    <div class="footer-about"><strong style="color:#1B3A4B;">The Weekly Incident Bulletin</strong> is published every Monday by The Language Firm. 3&ndash;5 K-12 AI and technology incidents with compliance analysis, recommended actions, and workflow impact tags.</div>
+    <div class="footer-upsell"><strong>Want more?</strong><br>Tool Vault &mdash; Full AI tool reviews with Workflow Fit ratings and staff time impact analysis.<br>Quarterly AI Briefing &mdash; Deep-dive analysis of trends, policy shifts, and what they mean for your district.<br>EWA Diagnostic &mdash; Workflow automation assessment for your school organization, remote or on-site.</div>
+    <div class="footer-legal"><a href="https://languagefirm.org">languagefirm.org</a> &nbsp;&middot;&nbsp; &copy; The Language Firm. All rights reserved.</div>
   </div>
-
-</div><!-- end email-container -->
-</di
+</div></div>
+</body>
+</html>
