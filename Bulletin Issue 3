@@ -222,11 +222,7 @@ body{background:var(--bg);font-family:'DM Sans',-apple-system,sans-serif;color:v
   <div class="site-footer-inner">
     <div class="footer-about">
       <strong>The Weekly Incident Bulletin</strong> is published every Monday by The Language Firm. 3 to 5 K-12 AI and technology incidents with compliance analysis, recommended actions, and workflow impact tags. Built for administrators, tech coordinators, and compliance leaders.
-    </div>
-    <div class="footer-upsell">
-      <strong>Questions?</strong>
-      <a href="mailto:jcs@thelanguagefirm.org" style="color:#2E75B6;">jcs@thelanguagefirm.org</a>
-    </div>
+   
   </div>
   <div class="footer-bottom">
     <div class="footer-legal"><a href="https://languagefirm.org">languagefirm.org</a> &nbsp;&middot;&nbsp; &copy; The Language Firm. All rights reserved.</div>
