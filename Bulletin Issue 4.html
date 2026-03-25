@@ -88,7 +88,7 @@ body{background:var(--bg);font-family:'DM Sans',-apple-system,sans-serif;color:v
     <div class="issue-meta">
       <div class="issue-meta-item"><span class="issue-meta-label">Issue</span><span class="issue-meta-value">004</span></div>
       <div class="issue-meta-item"><span class="issue-meta-label">Week of</span><span class="issue-meta-value">Week of March 23, 2026</span></div>
-      <div class="issue-meta-item"><span class="issue-meta-label">Incidents</span><span class="issue-meta-value">5</span></div>
+      <div class="issue-meta-item"><span class="issue-meta-label">Incidents</span><span class="issue-meta-value">6</span></div>
     </div>
   </div>
 </header>
@@ -103,10 +103,40 @@ body{background:var(--bg);font-family:'DM Sans',-apple-system,sans-serif;color:v
  
       <div class="section-bar dark-bar">Incidents</div>
  
+      <!-- INCIDENT 6: LiteLLM supply chain attack - BREAKING -->
+      <div class="incident" style="border-top:3px solid var(--red);">
+        <div class="incident-header">
+          <div class="incident-num" style="background:var(--red);">1</div>
+          <div class="incident-title-block">
+            <div style="font-size:10px;font-weight:700;letter-spacing:0.15em;text-transform:uppercase;color:var(--red);margin-bottom:4px;">Breaking</div>
+            <div class="incident-title">Major supply chain attack on widely used AI software library exposes credentials across cloud environments, raising urgent questions about vendor software security in K-12</div>
+            <div class="incident-source">The Hacker News, Snyk, LiteLLM Security Advisory &middot; March 24, 2026</div>
+          </div>
+        </div>
+        <div class="field-label">What happened</div>
+        <div class="incident-field">On March 24, 2026, malicious versions of LiteLLM, a widely used open-source library that powers AI integrations across thousands of organizations, were published to PyPI, Python's main software package repository. The attack was carried out by a threat actor called TeamPCP, who stole publishing credentials by first compromising a separate security scanning tool used in LiteLLM's build pipeline. The malicious versions were available for approximately three hours before removal, but LiteLLM has roughly 3.4 million daily downloads. The malware collected SSH keys, cloud credentials, database passwords, API keys, and Kubernetes cluster secrets, then encrypted and transmitted them to an attacker-controlled server. LiteLLM confirmed the attack and engaged Google's Mandiant forensics team. The entire LiteLLM package was temporarily quarantined while the investigation continues.</div>
+        <div class="field-label">Who's affected</div>
+        <div class="incident-field">Any school district, edtech vendor, or IT contractor that uses AI-powered tools built on Python-based frameworks may be indirectly exposed. Districts do not need to have heard of LiteLLM to be at risk: if any vendor your district uses for AI tutoring, assessment analytics, grading support, or data processing built their product using LiteLLM or tools that depend on it, their infrastructure may have been compromised. This is a vendor risk problem, not just a technology problem.</div>
+        <div class="field-label red">Compliance Exposure</div>
+        <div class="incident-field">If a vendor your district uses was running compromised LiteLLM code during the exposure window, their cloud credentials may now be in attacker hands, and those credentials could include access to systems that store student data. Under FERPA, districts remain responsible for student data even when processed by vendors. Federal monitors would ask: What software security standards does your district require of AI vendors in contracts? Do your vendor agreements require disclosure of supply chain compromises, not just direct breaches? Did you receive notification from any AI vendor about this incident? What is your protocol when a vendor's infrastructure is compromised?</div>
+        <div class="action-box">
+          <div class="action-label">Recommended Action</div>
+          This incident is a prompt to ask questions your district should already have answers to: how much do you actually know about the technology your vendors are building on, and what happens when that technology fails? Most districts review vendor privacy policies and data agreements, but few ask what software libraries, cloud infrastructure, or third-party components power the product they are paying for. Start there. For each AI vendor you currently use, request answers to the following in writing: What software libraries or open-source components does your product depend on? Do you have a process for detecting and responding to supply chain compromises in those dependencies? If a component your product uses is compromised, what is your notification timeline to customers, and what is your incident response protocol? Are your cloud environments isolated from your development and build pipelines? Review your existing vendor contracts to confirm breach notification language covers supply chain incidents, not just direct breaches of your district's data. If a vendor cannot answer these questions or does not have documented protocols, that is a gap your district needs to address before the next incident, not after.
+        </div>
+        <div class="workflow-tag"><div class="workflow-label">Workflow Impact</div>Vendor Management: Add software supply chain security questions to your AI vendor due diligence checklist and confirm existing AI vendors were not affected by this incident</div>
+ 
+        <div style="background:var(--light);border-left:4px solid var(--accent);padding:16px 20px;margin-top:16px;">
+          <div style="font-size:10px;font-weight:700;letter-spacing:0.15em;text-transform:uppercase;color:var(--accent);margin-bottom:6px;">Free Resource from The Language Firm</div>
+          <div style="font-size:14px;font-weight:700;color:var(--dark);margin-bottom:6px;">Vendor Accountability Checklist</div>
+          <div style="font-size:13px;color:#555;line-height:1.6;margin-bottom:12px;">This incident is exactly what the Vendor Accountability Checklist is built for. Use it to assess whether your current AI vendors meet the security, notification, and contract standards your district needs. Free download, no account required.</div>
+          <a href="https://raw.githubusercontent.com/TLF-deck/Resources/98f38b4c81f026cd4cdd9d4050634899668859d2/TLF%20Vendor%20Accountability%20Checklist.pdf" target="_blank" style="display:inline-block;background:var(--accent);color:#fff;font-size:12px;font-weight:700;letter-spacing:0.08em;text-transform:uppercase;padding:10px 20px;text-decoration:none;">Download the Checklist &rarr;</a>
+        </div>
+      </div>
+ 
       <!-- INCIDENT 1: Pennsylvania SAFECHAT Act -->
       <div class="incident">
         <div class="incident-header">
-          <div class="incident-num">1</div>
+          <div class="incident-num">2</div>
           <div class="incident-title-block">
             <!-- CORRECTION 1: Added "pending House passage" to title -->
             <div class="incident-title">Pennsylvania Senate passes first-in-state regulation of AI companion chatbots used by minors, bill now awaiting House vote</div>
@@ -128,7 +158,7 @@ body{background:var(--bg);font-family:'DM Sans',-apple-system,sans-serif;color:v
       <!-- INCIDENT 2: Nevada -->
       <div class="incident">
         <div class="incident-header">
-          <div class="incident-num">2</div>
+          <div class="incident-num">3</div>
           <div class="incident-title-block">
             <div class="incident-title">Nevada lawmakers debate urgent need for AI education policy amid data privacy concerns</div>
             <div class="incident-source">Nevada Current &middot; March 19, 2026</div>
@@ -148,7 +178,7 @@ body{background:var(--bg);font-family:'DM Sans',-apple-system,sans-serif;color:v
       <!-- INCIDENT 3: Navigate360 -->
       <div class="incident">
         <div class="incident-header">
-          <div class="incident-num">3</div>
+          <div class="incident-num">4</div>
           <div class="incident-title-block">
             <!-- CORRECTION 3: Changed "suffers" to "reportedly hit by" -->
             <div class="incident-title">Anonymous student tip-reporting app reportedly hit by major cyberattack, potentially exposing sensitive reports</div>
@@ -169,7 +199,7 @@ body{background:var(--bg);font-family:'DM Sans',-apple-system,sans-serif;color:v
       <!-- INCIDENT 4: Radnor deepfakes -->
       <div class="incident">
         <div class="incident-header">
-          <div class="incident-num">4</div>
+          <div class="incident-num">5</div>
           <div class="incident-title-block">
             <div class="incident-title">Parents of AI deepfake victims meet with Pennsylvania governor to demand state action on school response protocols</div>
             <!-- CORRECTION 4: Corrected date to March 19 -->
@@ -190,7 +220,7 @@ body{background:var(--bg);font-family:'DM Sans',-apple-system,sans-serif;color:v
       <!-- INCIDENT 5: PowerSchool MDL -->
       <div class="incident">
         <div class="incident-header">
-          <div class="incident-num">5</div>
+          <div class="incident-num">6</div>
           <div class="incident-title-block">
             <div class="incident-title">Federal judge allows most claims to proceed in PowerSchool data breach litigation</div>
             <!-- CORRECTION 5: Corrected date to March 19 -->
@@ -226,6 +256,11 @@ body{background:var(--bg);font-family:'DM Sans',-apple-system,sans-serif;color:v
  
           <div class="ref-incident-title">Federal judge allows most claims to proceed in PowerSchool data breach litigation</div>
           <div class="ref-citation">[1] Law360. &ldquo;PowerSchool, Bain Can't Skirt MDL Over Student Data Breach.&rdquo; March 19, 2026. <a href="https://www.law360.com/articles/2455477/powerschool-bain-can-t-skirt-mdl-over-student-data-breach">https://www.law360.com/articles/2455477/powerschool-bain-can-t-skirt-mdl-over-student-data-breach</a></div>
+ 
+          <div class="ref-incident-title">Breaking: Major supply chain attack on LiteLLM exposes credentials across cloud environments</div>
+          <div class="ref-citation">[1] LiteLLM. &ldquo;Security Update: Suspected Supply Chain Incident.&rdquo; March 24, 2026. <a href="https://docs.litellm.ai/blog/security-update-march-2026">https://docs.litellm.ai/blog/security-update-march-2026</a></div>
+          <div class="ref-citation">[2] Snyk. &ldquo;How a Poisoned Security Scanner Became the Key to Backdooring LiteLLM.&rdquo; March 24, 2026. <a href="https://snyk.io/articles/poisoned-security-scanner-backdooring-litellm/">https://snyk.io/articles/poisoned-security-scanner-backdooring-litellm/</a></div>
+          <div class="ref-citation">[3] The Hacker News. &ldquo;TeamPCP Backdoors LiteLLM Versions 1.82.7-1.82.8 via Trivy CI/CD Compromise.&rdquo; March 25, 2026. <a href="https://thehackernews.com/2026/03/teampcp-backdoors-litellm-versions.html">https://thehackernews.com/2026/03/teampcp-backdoors-litellm-versions.html</a></div>
         </div>
       </div>
     </div>
@@ -291,3 +326,4 @@ body{background:var(--bg);font-family:'DM Sans',-apple-system,sans-serif;color:v
  
 </body>
 </html>
+ 
