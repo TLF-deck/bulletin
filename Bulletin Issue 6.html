@@ -1,0 +1,248 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Weekly Incident Bulletin, The Language Firm</title>
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;700&family=Fraunces:wght@600;700&display=swap" rel="stylesheet">
+<style>
+:root{--dark:#1B3A4B;--accent:#2E75B6;--light:#E8F0F8;--light2:#F5F9FC;--amber:#E67E22;--green:#27AE60;--green-bg:#D5E8D4;--red:#C0392B;--gray:#777;--gray-lt:#CCC;--body-text:#333;--bg:#F2F2F2;--white:#FFF;}
+*{margin:0;padding:0;box-sizing:border-box;}
+body{background:var(--bg);font-family:'DM Sans',-apple-system,sans-serif;color:var(--body-text);line-height:1.6;}
+.site-header{background:var(--dark);border-bottom:3px solid var(--accent);padding:0;}
+.site-header-inner{max-width:1100px;margin:0 auto;padding:20px 40px;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:12px;}
+.site-header-brand{display:flex;flex-direction:column;}
+.site-header-org{font-size:10px;font-weight:700;letter-spacing:3px;text-transform:uppercase;color:rgba(255,255,255,0.4);margin-bottom:3px;}
+.site-header-title{font-family:'Fraunces',serif;font-size:26px;font-weight:700;color:var(--white);line-height:1.1;}
+.site-header-tag{font-size:13px;color:var(--accent);margin-top:2px;}
+.issue-meta{display:flex;gap:24px;flex-wrap:wrap;}
+.issue-meta-item{display:flex;flex-direction:column;align-items:flex-end;}
+.issue-meta-label{font-size:9px;font-weight:700;letter-spacing:0.15em;text-transform:uppercase;color:rgba(255,255,255,0.35);}
+.issue-meta-value{font-size:14px;font-weight:500;color:var(--white);}
+.page-body{max-width:1100px;margin:0 auto;padding:40px 40px;}
+.content-grid{display:grid;grid-template-columns:1fr 300px;gap:32px;align-items:start;}
+.main-col{}
+.section-bar{padding:8px 0;font-size:11px;font-weight:700;letter-spacing:0.1em;text-transform:uppercase;color:var(--accent);border-bottom:2px solid var(--accent);margin-bottom:20px;}
+.section-bar.dark-bar{color:var(--dark);border-bottom-color:var(--dark);}
+.summary-block{background:var(--white);border-left:4px solid var(--accent);padding:20px 24px;margin-bottom:32px;font-size:15px;line-height:1.7;color:var(--body-text);box-shadow:0 1px 6px rgba(0,0,0,0.05);}
+.incident{background:var(--white);padding:28px;margin-bottom:20px;box-shadow:0 1px 6px rgba(0,0,0,0.05);border-top:3px solid var(--light);}
+.incident:hover{border-top-color:var(--accent);}
+.incident-header{display:flex;gap:14px;margin-bottom:18px;align-items:flex-start;}
+.incident-num{background:var(--dark);color:var(--white);width:38px;height:38px;border-radius:4px;display:flex;align-items:center;justify-content:center;font-size:18px;font-weight:700;flex-shrink:0;}
+.incident-title{font-size:17px;font-weight:700;color:var(--dark);line-height:1.3;}
+.incident-source{font-size:12px;color:var(--gray);margin-top:3px;}
+.field-label{font-size:10px;font-weight:700;letter-spacing:0.15em;text-transform:uppercase;color:var(--gray);margin-bottom:5px;margin-top:16px;}
+.field-label.red{color:var(--red);}
+.incident-field{font-size:14px;line-height:1.7;color:#444;word-break:break-word;}
+.action-box{background:var(--green-bg);border-left:4px solid var(--green);padding:14px 18px;margin-top:16px;font-size:14px;line-height:1.65;font-weight:600;color:var(--dark);word-break:break-word;}
+.action-label{font-size:10px;font-weight:700;letter-spacing:0.15em;text-transform:uppercase;color:#1E8449;margin-bottom:6px;}
+.workflow-tag{background:#FFF8E1;border-left:4px solid var(--amber);padding:10px 16px;margin-top:10px;font-size:13px;color:#555;line-height:1.5;word-break:break-word;}
+.workflow-label{font-size:10px;font-weight:700;letter-spacing:0.15em;text-transform:uppercase;color:var(--amber);margin-bottom:4px;}
+.sidebar{}
+.sidebar-card{background:var(--white);padding:20px;margin-bottom:20px;box-shadow:0 1px 6px rgba(0,0,0,0.05);}
+.sidebar-card-title{font-size:10px;font-weight:700;letter-spacing:0.15em;text-transform:uppercase;color:var(--accent);border-bottom:2px solid var(--light);padding-bottom:8px;margin-bottom:14px;}
+.policy-item{padding-left:12px;border-left:2px solid var(--gray-lt);margin-bottom:14px;font-size:13px;line-height:1.6;color:#444;}
+.policy-item:last-child{margin-bottom:0;}
+.policy-action{font-size:12px;font-weight:600;color:var(--dark);margin-top:4px;}
+.tool-row{display:flex;gap:12px;margin-bottom:12px;font-size:13px;align-items:flex-start;}
+.tool-row:last-child{margin-bottom:0;}
+.tool-name{font-weight:700;color:var(--dark);min-width:110px;max-width:110px;flex-shrink:0;line-height:1.5;}
+.tool-change{color:#555;line-height:1.6;word-break:break-word;overflow-wrap:break-word;flex:1;}
+.stat-card{background:var(--dark);padding:24px;text-align:center;margin-bottom:20px;overflow:hidden;}
+.stat-number{font-family:'Fraunces',serif;font-size:36px;font-weight:700;color:var(--white);line-height:1.2;word-break:break-word;overflow-wrap:break-word;}
+.stat-label{font-size:9px;font-weight:700;letter-spacing:0.2em;text-transform:uppercase;color:rgba(255,255,255,0.4);margin:6px 0 10px;}
+.stat-context{font-size:13px;color:rgba(255,255,255,0.7);line-height:1.6;}
+.stat-source{font-size:11px;color:rgba(255,255,255,0.35);margin-top:10px;padding-top:10px;border-top:1px solid rgba(255,255,255,0.1);}
+.references-section{background:var(--white);padding:24px 28px;margin-top:8px;box-shadow:0 1px 6px rgba(0,0,0,0.05);}
+.ref-incident-title{font-size:12px;font-weight:700;color:#555;margin-bottom:4px;margin-top:14px;}
+.ref-incident-title:first-child{margin-top:0;}
+.ref-citation{font-size:12px;color:#777;padding-left:12px;line-height:1.6;margin-bottom:2px;word-break:break-word;}
+.ref-citation a{color:var(--accent);}
+.site-footer{background:var(--dark);margin-top:60px;padding:40px 40px;}
+.site-footer-inner{max-width:1100px;margin:0 auto;display:grid;grid-template-columns:2fr 1fr;gap:40px;align-items:start;}
+.footer-about{font-size:13px;color:rgba(255,255,255,0.5);line-height:1.7;}
+.footer-about strong{color:var(--white);}
+.footer-upsell{font-size:13px;line-height:1.7;color:rgba(255,255,255,0.5);}
+.footer-upsell strong{color:var(--white);display:block;margin-bottom:6px;}
+.footer-bottom{max-width:1100px;margin:24px auto 0;padding-top:20px;border-top:1px solid rgba(255,255,255,0.1);display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:8px;}
+.footer-legal{font-size:11px;color:rgba(255,255,255,0.3);}
+.footer-legal a{color:var(--accent);text-decoration:none;}
+@media(max-width:900px){
+  .content-grid{grid-template-columns:1fr;}
+  .site-footer-inner{grid-template-columns:1fr;}
+  .site-header-inner,.page-body,.site-footer{padding-left:20px;padding-right:20px;}
+  .issue-meta{justify-content:flex-start;}
+  .issue-meta-item{align-items:flex-start;}
+}
+</style>
+</head>
+<body>
+
+<header class="site-header">
+  <div class="site-header-inner">
+    <div class="site-header-brand">
+      <div class="site-header-org">The Language Firm</div>
+      <div class="site-header-title">Weekly Incident Bulletin</div>
+      <div class="site-header-tag">K-12 Technology &amp; AI Risk Intelligence</div>
+    </div>
+    <div class="issue-meta">
+      <div class="issue-meta-item"><span class="issue-meta-label">Issue</span><span class="issue-meta-value">006</span></div>
+      <div class="issue-meta-item"><span class="issue-meta-label">Week of</span><span class="issue-meta-value">Week of April 6, 2026</span></div>
+      <div class="issue-meta-item"><span class="issue-meta-label">Incidents</span><span class="issue-meta-value">3</span></div>
+    </div>
+  </div>
+</header>
+
+<div class="page-body">
+  <div class="content-grid">
+    <div class="main-col">
+      <div class="section-bar">This Week's Summary</div>
+      <div class="summary-block">This week produced two AI deepfake incidents at K-12 schools within three weeks of each other, a $17.25 million PowerSchool Naviance settlement revealing that roughly 10 million students were in the breach class without district awareness, and a federal budget proposal that eliminates Title II, Title III, Title IV, and after-school funding while preserving Title I-A at current levels. The deepfake incidents, at Radnor High School in Pennsylvania in March and now Lake Zurich High School in Illinois, confirm this is a national pattern requiring immediate policy action. The deepfake incidents, weeks apart and in different states, confirm that nonconsensual AI-generated imagery of students is not an isolated problem. Districts without explicit policies and response protocols are operating without a plan.</div>
+
+      <div class="section-bar dark-bar">Incidents</div>
+
+      <!-- INCIDENT 1: Lake Zurich deepfakes -->
+      <div class="incident" style="border-top:3px solid var(--red);">
+        <div class="incident-header">
+          <div class="incident-num" style="background:var(--red);">1</div>
+          <div class="incident-title-block">
+            <div style="font-size:10px;font-weight:700;letter-spacing:0.15em;text-transform:uppercase;color:var(--red);margin-bottom:4px;">Breaking</div>
+            <div class="incident-title">Police investigate AI-generated nude images of Lake Zurich High School students, second deepfake incident at a K-12 school in three weeks</div>
+            <div class="incident-source">NBC 5 Chicago, Chicago Tribune &middot; April 3, 2026</div>
+          </div>
+        </div>
+        <div class="field-label">What happened</div>
+        <div class="incident-field">Lake Zurich High School in Illinois, part of Lake Zurich Community Unit School District 95, is working with police after students used AI image generation tools to create explicit nude images of their classmates. Superintendent Dr. Kelley Gallt notified families April 3, stating the district first received a report on February 26, 2026. School officials describe the content as "very realistic." Police are actively investigating. This follows the Radnor High School incident covered in Issue 004, where Pennsylvania parents met with the governor in March to demand state action. Two confirmed AI deepfake incidents at K-12 schools in three weeks, in different states, involving student-generated content targeting other students.</div>
+        <div class="field-label">Who's affected</div>
+        <div class="incident-field">All districts, particularly those without explicit policies prohibiting the creation or distribution of AI-generated images of students, and those without documented protocols for how administrators, counselors, and law enforcement should respond when an incident occurs.</div>
+        <div class="field-label red">Compliance Exposure</div>
+        <div class="incident-field">A district that cannot demonstrate a written policy prohibiting AI-generated sexual content involving students, a documented response protocol, and staff training on that protocol faces significant exposure under Title IX. Federal monitors reviewing Title IX compliance would ask: Is nonconsensual AI-generated imagery explicitly addressed in your harassment and sexual misconduct policy? What is the documented response chain when an incident is reported? Were victim support services provided and documented? Was law enforcement contacted and when? Districts that treated this as an IT or disciplinary issue rather than a Title IX matter face the highest risk.</div>
+        <div class="action-box">
+          <div class="action-label">Recommended Action</div>
+          Three actions this week. First, confirm your Title IX policy explicitly addresses AI-generated sexual imagery of students. "Harassment" language that predates generative AI may not be specific enough to cover this. Second, document your incident response protocol: who is notified, in what order, what law enforcement contact looks like, and what victim support services are offered. This protocol should exist in writing before the next incident, not after. Third, confirm your acceptable use policy explicitly prohibits the creation or distribution of AI-generated images of students or staff using any device, on or off campus. If it does not, update it this week and distribute it.
+        </div>
+        <div class="workflow-tag"><div class="workflow-label">Workflow Impact</div>Compliance &amp; Reporting: Update Title IX policy and acceptable use policy to explicitly address AI-generated sexual imagery, and document the incident response protocol in writing</div>
+      </div>
+
+      <!-- INCIDENT 2: Naviance settlement + Cherry Creek -->
+      <div class="incident">
+        <div class="incident-header">
+          <div class="incident-num">2</div>
+          <div class="incident-title-block">
+            <div class="incident-title">PowerSchool Naviance reaches $17.25 million settlement in student data breach class action, with roughly 10 million students in the nationwide class and districts unaware their students were affected</div>
+            <div class="incident-source">K-12 Dive, Fox31 KDVR &middot; April 3, 2026</div>
+          </div>
+        </div>
+        <div class="field-label">What happened</div>
+        <div class="incident-field">PowerSchool's Naviance college counseling platform has reached a $17.25 million settlement in a class action lawsuit over a 2024 data breach. The settlement class covers any student who logged into Naviance at least once between August 18, 2021 and January 23, 2026, a group that reportedly totals roughly 10 million students nationwide. The original plaintiff was a Chicago Public Schools student. This week, Cherry Creek School District in Colorado was alerted when students received settlement notification emails and families asked the district what was happening. Cherry Creek confirmed the emails were legitimate and told families the settlement did not reflect a breach of the district's own systems. Reporting from Fox31 KDVR raised the question of why districts were not notified of the breach when it occurred rather than learning about it through a settlement notification their students received.</div>
+        <div class="field-label">Who's affected</div>
+        <div class="incident-field">Any district using Naviance. If your students logged into Naviance between August 2021 and January 2026, they are likely in the settlement class. K-12 Dive reports that legal observers say the settlement marks how far student data privacy litigation has advanced, with courts now treating edtech data breaches as a serious and compensable harm.</div>
+        <div class="field-label red">Compliance Exposure</div>
+        <div class="incident-field">The Cherry Creek situation illustrates a specific gap: districts learned about a breach affecting their students through a settlement notice rather than a vendor breach notification. Federal monitors reviewing FERPA compliance and vendor oversight would ask: Did you receive timely notification from Naviance when the breach occurred? What data does Naviance hold on your students, and what breach notification obligations does your contract require? What is your protocol when students or families alert the district to a vendor security event the district was not informed about directly?</div>
+        <div class="action-box"><div class="action-label">Recommended Action</div>If your district uses or has used Naviance, contact PowerSchool this week to confirm whether your students are in the settlement class and what steps the company is taking to notify affected families. Pull your Naviance contract and document the breach notification terms. If the contract does not require timely vendor notification of security incidents, flag that gap for your next renewal. For all edtech vendor contracts: confirm breach notification language requires direct district notification, not just public disclosure or settlement, as the trigger.</div>
+        <div class="workflow-tag"><div class="workflow-label">Workflow Impact</div>Vendor Management: Confirm Naviance settlement class status for your students and review vendor contracts for direct breach notification requirements</div>
+      </div>
+
+      <!-- INCIDENT 3: Trump budget cuts -->
+      <div class="incident">
+        <div class="incident-header">
+          <div class="incident-num">3</div>
+          <div class="incident-title-block">
+            <div class="incident-title">Trump budget proposal calls for major cuts to Title I-A and federal education programs, drawing immediate scrutiny from district administrators and federal program directors</div>
+            <div class="incident-source">Education Week &middot; April 3, 2026</div>
+          </div>
+        </div>
+        <div class="field-label">What happened</div>
+        <div class="incident-field">The Trump administration released its fiscal year 2027 budget proposal on April 4, 2026, calling for major cuts to federal education programs. Contrary to some expectations, the proposal preserves Title I-A at its current level of roughly $18 billion. However, it proposes eliminating Title II professional development funding ($2.2 billion), Title III English Language Acquisition grants ($890 million), Title IV student enrichment grants ($1.4 billion), 21st Century Community Learning Centers ($1.3 billion), the Institute of Education Sciences (cut from over $700 million to $261 million), and the Office for Civil Rights (cut by 35 percent). The proposal is not law and must pass Congress, which rejected comparable cuts last year.</div>
+        <div class="field-label">Who's affected</div>
+        <div class="incident-field">Districts that rely on Title II for professional development, Title III for English Learner services, Title IV for technology and enrichment programs, and 21st Century funds for before and after school programs face the most direct impact if Congress adopts the proposal. IDEA Part B funding would be essentially flat once accounting for the consolidation of subprograms. Districts in states where these eliminated programs provide significant support should begin contingency planning now.</div>
+        <div class="field-label red">Compliance Exposure</div>
+        <div class="incident-field">Budget proposals create compliance pressure in two ways. First, if funding is reduced, districts must document any changes to programs funded with federal dollars, including how they will maintain services to students with disabilities and English Learners who have legally enforceable rights to services regardless of funding levels. Second, any staff reductions tied to federal funding changes trigger documentation requirements under applicable employment law and, if SPED staff are involved, IEP team obligations. Federal monitors would ask: What is your contingency plan if Title I funding is reduced? How will you maintain FAPE for students with disabilities if IDEA funding is cut?</div>
+        <div class="action-box"><div class="action-label">Recommended Action</div>This week, identify every staff position, program, and purchase order in your district that is funded wholly or in part by Title I-A. If you do not have this list current and organized by funding source, building it now is the most important compliance action you can take before the end of the school year. Separately, confirm with your special education director that your district has a documented plan for maintaining FAPE if IDEA funding is reduced, since student entitlements under IDEA do not disappear when federal appropriations change. Do not wait for a final budget to begin this analysis.</div>
+        <div class="workflow-tag"><div class="workflow-label">Workflow Impact</div>Compliance &amp; Reporting: Compile a current inventory of all positions and programs funded by Title I-A and confirm a contingency plan exists for maintaining federally required services</div>
+      </div>
+
+
+
+      <div class="section-bar" style="margin-top:32px;">References</div>
+      <div class="references-section">
+        <div class="ref-incident-title">Police investigate AI-generated nude images of Lake Zurich High School students</div>
+        <div class="ref-citation">[1] NBC 5 Chicago. &ldquo;Suburban district gives update as police investigate AI-generated pornographic images of students.&rdquo; April 3, 2026. <a href="https://www.nbcchicago.com/news/local/suburban-district-gives-update-as-police-investigate-ai-generated-pornographic-images-of-students/3918015/">https://www.nbcchicago.com/news/local/suburban-district-gives-update-as-police-investigate-ai-generated-pornographic-images-of-students/3918015/</a></div>
+        <div class="ref-citation">[2] Chicago Tribune. &ldquo;Police investigating nude AI images of Lake Zurich students.&rdquo; April 3, 2026. <a href="https://www.chicagotribune.com/2026/04/03/lake-zurich-high-ai-images/">https://www.chicagotribune.com/2026/04/03/lake-zurich-high-ai-images/</a></div>
+
+        <div class="ref-incident-title">PowerSchool Naviance $17.25 million settlement, settlement class roughly 10 million students</div>
+        <div class="ref-citation">[1] K-12 Dive. &ldquo;What the $17.25M PowerSchool Naviance settlement means for school districts.&rdquo; April 3, 2026. <a href="https://www.k12dive.com/news/what-the-1725m-naviance-settlement-means-for-school-districts/816496/">https://www.k12dive.com/news/what-the-1725m-naviance-settlement-means-for-school-districts/816496/</a></div>
+        <div class="ref-citation">[2] Fox31 KDVR. &ldquo;Questions raised after Cherry Creek students notified of data breach, lawsuit.&rdquo; April 3, 2026. <a href="https://kdvr.com/news/local/questions-raised-after-cherry-creek-students-notified-of-data-breach-lawsuit/">https://kdvr.com/news/local/questions-raised-after-cherry-creek-students-notified-of-data-breach-lawsuit/</a></div>
+
+        <div class="ref-incident-title">Trump budget proposal calls for major cuts to Title I-A</div>
+        <div class="ref-citation">[1] Education Week. &ldquo;Trump Again Proposes Major Education Cuts in New Budget Proposal.&rdquo; April 3, 2026. <a href="https://www.edweek.org/policy-politics/trump-again-proposes-major-education-cuts-in-new-budget-proposal/2026/04">https://www.edweek.org/policy-politics/trump-again-proposes-major-education-cuts-in-new-budget-proposal/2026/04</a></div>
+
+      </div>
+    </div>
+
+    <!-- SIDEBAR -->
+    <div class="sidebar">
+      <div class="stat-card">
+        <div class="stat-number">$17.25M</div>
+        <div class="stat-label">By the Numbers</div>
+        <div class="stat-context">The PowerSchool Naviance class action settlement, covering roughly 10 million students who logged into Naviance between August 2021 and January 2026. Districts learned about the breach affecting their students through a settlement notification, not a vendor breach alert.</div>
+        <div class="stat-source">K-12 Dive, April 3, 2026</div>
+      </div>
+
+      <div class="sidebar-card">
+        <div class="sidebar-card-title">Policy Watch</div>
+        <div class="policy-item">
+          <div>The Trump administration's FY2027 budget proposal preserves Title I-A at roughly $18 billion but proposes eliminating Title II professional development, Title III English Learner grants, Title IV enrichment grants, and 21st Century Community Learning Centers. Congress rejected comparable proposals last year. Districts should not assume the same outcome and should begin identifying which programs and positions depend on these funding streams now.</div>
+          <div class="policy-action">All districts: Identify every position and program funded wholly or in part by Title II, Title III, Title IV, and 21st Century funds. Build a contingency list before the end of the school year.</div>
+        </div>
+        <div class="policy-item">
+          <div>Two AI deepfake incidents at K-12 schools in three weeks, in Illinois and Pennsylvania, are generating legislative pressure in both states. Pennsylvania's governor has already called on the Department of Education to develop response standards. Illinois may follow. Districts in both states should prepare for new requirements before the end of the 2025-2026 school year.</div>
+          <div class="policy-action">Illinois and Pennsylvania districts: Begin drafting or updating your AI deepfake response protocol now, before state guidance arrives and sets the bar retroactively.</div>
+        </div>
+      </div>
+
+      <div class="sidebar-card">
+        <div class="sidebar-card-title">Tool Alerts</div>
+        <div class="tool-row">
+          <span class="tool-name">PowerSchool Naviance</span>
+          <span class="tool-change">$17.25 million settlement reached in data breach class action. Districts using Naviance should confirm settlement class status and review contract data security terms.</span>
+        </div>
+        <div class="tool-row">
+          <span class="tool-name">AI image generators (consumer)</span>
+          <span class="tool-change">Two confirmed K-12 deepfake incidents in three weeks using consumer AI image generation tools. Neither tool is school-issued. Acceptable use policies must address personal device use of AI image tools targeting students.</span>
+        </div>
+      </div>
+
+      <div class="sidebar-card" style="background:#1B3A4B;">
+        <div class="sidebar-card-title" style="color:#2E75B6;border-bottom-color:#2E75B6;">Want More?</div>
+        <div style="font-size:13px;color:rgba(255,255,255,0.6);line-height:1.7;">
+          <strong style="color:#fff;display:block;margin-bottom:6px;">The Tool Vault</strong>
+          AI tools are moving faster than your documentation. The Tool Vault is where K-12 leaders go to close that gap.<br><br>
+          <strong style="color:rgba(255,255,255,0.85);">The Weekly Incident Bulletin</strong> surfaces 3 to 5 incidents each Monday that create real audit risk, explains what a federal monitor would look for, and tells you exactly what to do. Free for K-12 administrators and compliance leaders.<br><br>
+          <strong style="color:rgba(255,255,255,0.85);">The District Filing</strong> is a free weekly intelligence report with a full operational review of one AI tool per issue, scored across vendor support, data handling, and workflow fit, with a downloadable Tool Spotlight Card. <a href="https://www.languagefirm.org/districtfilingarchive" style="color:#2E75B6;">View the archive.</a><br><br>
+          <strong style="color:rgba(255,255,255,0.85);">The Federal Findings Digest</strong> is the monthly roundup of federal AI policy movement, published by The Language Firm. <a href="https://www.languagefirm.org/digest-archive" style="color:#2E75B6;">View the archive.</a><br><br>
+          <a href="https://languagefirm.org/toolvault" style="display:inline-block;background:#2E75B6;color:#fff;font-size:11px;font-weight:700;letter-spacing:0.08em;text-transform:uppercase;padding:8px 16px;text-decoration:none;margin-top:4px;">Enter the Vault &rarr;</a>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<footer class="site-footer">
+  <div class="site-footer-inner">
+    <div class="footer-about">
+      <strong>The Weekly Incident Bulletin</strong> is published every Monday by The Language Firm. 3 to 5 K-12 AI and technology incidents with compliance analysis, recommended actions, and workflow impact tags. Built for administrators, tech coordinators, and compliance leaders.
+    </div>
+    <div class="footer-upsell">
+      <strong>Questions?</strong>
+      <a href="mailto:jcs@thelanguagefirm.org" style="color:#2E75B6;">jcs@thelanguagefirm.org</a>
+    </div>
+  </div>
+  <div class="footer-bottom">
+    <div class="footer-legal"><a href="https://languagefirm.org">languagefirm.org</a> &nbsp;&middot;&nbsp; &copy; The Language Firm. All rights reserved.</div>
+  </div>
+</footer>
+
+</body>
+</html>
