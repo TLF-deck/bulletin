@@ -1,0 +1,246 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Weekly Incident Bulletin, The Language Firm</title>
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;700&family=Fraunces:wght@600;700&display=swap" rel="stylesheet">
+<style>
+:root{--dark:#1B3A4B;--accent:#2E75B6;--light:#E8F0F8;--light2:#F5F9FC;--amber:#E67E22;--green:#27AE60;--green-bg:#D5E8D4;--red:#C0392B;--gray:#777;--gray-lt:#CCC;--body-text:#333;--bg:#F2F2F2;--white:#FFF;}
+*{margin:0;padding:0;box-sizing:border-box;}
+body{background:var(--bg);font-family:'DM Sans',-apple-system,sans-serif;color:var(--body-text);line-height:1.6;}
+.site-header{background:var(--dark);border-bottom:3px solid var(--accent);padding:0;}
+.site-header-inner{max-width:1100px;margin:0 auto;padding:20px 40px;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:12px;}
+.site-header-brand{display:flex;flex-direction:column;}
+.site-header-org{font-size:10px;font-weight:700;letter-spacing:3px;text-transform:uppercase;color:rgba(255,255,255,0.4);margin-bottom:3px;}
+.site-header-title{font-family:'Fraunces',serif;font-size:26px;font-weight:700;color:var(--white);line-height:1.1;}
+.site-header-tag{font-size:13px;color:var(--accent);margin-top:2px;}
+.issue-meta{display:flex;gap:24px;flex-wrap:wrap;}
+.issue-meta-item{display:flex;flex-direction:column;align-items:flex-end;}
+.issue-meta-label{font-size:9px;font-weight:700;letter-spacing:0.15em;text-transform:uppercase;color:rgba(255,255,255,0.35);}
+.issue-meta-value{font-size:14px;font-weight:500;color:var(--white);}
+.page-body{max-width:1100px;margin:0 auto;padding:40px 40px;}
+.content-grid{display:grid;grid-template-columns:1fr 300px;gap:32px;align-items:start;}
+.main-col{}
+.section-bar{padding:8px 0;font-size:11px;font-weight:700;letter-spacing:0.1em;text-transform:uppercase;color:var(--accent);border-bottom:2px solid var(--accent);margin-bottom:20px;}
+.section-bar.dark-bar{color:var(--dark);border-bottom-color:var(--dark);}
+.summary-block{background:var(--white);border-left:4px solid var(--accent);padding:20px 24px;margin-bottom:32px;font-size:15px;line-height:1.7;color:var(--body-text);box-shadow:0 1px 6px rgba(0,0,0,0.05);}
+.incident{background:var(--white);padding:28px;margin-bottom:20px;box-shadow:0 1px 6px rgba(0,0,0,0.05);border-top:3px solid var(--light);}
+.incident:hover{border-top-color:var(--accent);}
+.incident-header{display:flex;gap:14px;margin-bottom:18px;align-items:flex-start;}
+.incident-num{background:var(--dark);color:var(--white);width:38px;height:38px;border-radius:4px;display:flex;align-items:center;justify-content:center;font-size:18px;font-weight:700;flex-shrink:0;}
+.incident-title{font-size:17px;font-weight:700;color:var(--dark);line-height:1.3;}
+.incident-source{font-size:12px;color:var(--gray);margin-top:3px;}
+.field-label{font-size:10px;font-weight:700;letter-spacing:0.15em;text-transform:uppercase;color:var(--gray);margin-bottom:5px;margin-top:16px;}
+.field-label.red{color:var(--red);}
+.incident-field{font-size:14px;line-height:1.7;color:#444;word-break:break-word;}
+.action-box{background:var(--green-bg);border-left:4px solid var(--green);padding:14px 18px;margin-top:16px;font-size:14px;line-height:1.65;font-weight:600;color:var(--dark);word-break:break-word;}
+.action-label{font-size:10px;font-weight:700;letter-spacing:0.15em;text-transform:uppercase;color:#1E8449;margin-bottom:6px;}
+.workflow-tag{background:#FFF8E1;border-left:4px solid var(--amber);padding:10px 16px;margin-top:10px;font-size:13px;color:#555;line-height:1.5;word-break:break-word;}
+.workflow-label{font-size:10px;font-weight:700;letter-spacing:0.15em;text-transform:uppercase;color:var(--amber);margin-bottom:4px;}
+.sidebar{}
+.sidebar-card{background:var(--white);padding:20px;margin-bottom:20px;box-shadow:0 1px 6px rgba(0,0,0,0.05);}
+.sidebar-card-title{font-size:10px;font-weight:700;letter-spacing:0.15em;text-transform:uppercase;color:var(--accent);border-bottom:2px solid var(--light);padding-bottom:8px;margin-bottom:14px;}
+.policy-item{padding-left:12px;border-left:2px solid var(--gray-lt);margin-bottom:14px;font-size:13px;line-height:1.6;color:#444;}
+.policy-item:last-child{margin-bottom:0;}
+.policy-action{font-size:12px;font-weight:600;color:var(--dark);margin-top:4px;}
+.tool-row{display:flex;gap:12px;margin-bottom:12px;font-size:13px;align-items:flex-start;}
+.tool-row:last-child{margin-bottom:0;}
+.tool-name{font-weight:700;color:var(--dark);min-width:110px;max-width:110px;flex-shrink:0;line-height:1.5;}
+.tool-change{color:#555;line-height:1.6;word-break:break-word;overflow-wrap:break-word;flex:1;}
+.stat-card{background:var(--dark);padding:24px;text-align:center;margin-bottom:20px;overflow:hidden;}
+.stat-number{font-family:'Fraunces',serif;font-size:36px;font-weight:700;color:var(--white);line-height:1.2;word-break:break-word;overflow-wrap:break-word;}
+.stat-label{font-size:9px;font-weight:700;letter-spacing:0.2em;text-transform:uppercase;color:rgba(255,255,255,0.4);margin:6px 0 10px;}
+.stat-context{font-size:13px;color:rgba(255,255,255,0.7);line-height:1.6;}
+.stat-source{font-size:11px;color:rgba(255,255,255,0.35);margin-top:10px;padding-top:10px;border-top:1px solid rgba(255,255,255,0.1);}
+.references-section{background:var(--white);padding:24px 28px;margin-top:8px;box-shadow:0 1px 6px rgba(0,0,0,0.05);}
+.ref-incident-title{font-size:12px;font-weight:700;color:#555;margin-bottom:4px;margin-top:14px;}
+.ref-incident-title:first-child{margin-top:0;}
+.ref-citation{font-size:12px;color:#777;padding-left:12px;line-height:1.6;margin-bottom:2px;word-break:break-word;}
+.ref-citation a{color:var(--accent);}
+.site-footer{background:var(--dark);margin-top:60px;padding:40px 40px;}
+.site-footer-inner{max-width:1100px;margin:0 auto;display:grid;grid-template-columns:2fr 1fr;gap:40px;align-items:start;}
+.footer-about{font-size:13px;color:rgba(255,255,255,0.5);line-height:1.7;}
+.footer-about strong{color:var(--white);}
+.footer-upsell{font-size:13px;line-height:1.7;color:rgba(255,255,255,0.5);}
+.footer-upsell strong{color:var(--white);display:block;margin-bottom:6px;}
+.footer-bottom{max-width:1100px;margin:24px auto 0;padding-top:20px;border-top:1px solid rgba(255,255,255,0.1);display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:8px;}
+.footer-legal{font-size:11px;color:rgba(255,255,255,0.3);}
+.footer-legal a{color:var(--accent);text-decoration:none;}
+@media(max-width:900px){
+  .content-grid{grid-template-columns:1fr;}
+  .site-footer-inner{grid-template-columns:1fr;}
+  .site-header-inner,.page-body,.site-footer{padding-left:20px;padding-right:20px;}
+  .issue-meta{justify-content:flex-start;}
+  .issue-meta-item{align-items:flex-start;}
+}
+</style>
+</head>
+<body>
+
+<header class="site-header">
+  <div class="site-header-inner">
+    <div class="site-header-brand">
+      <div class="site-header-org">The Language Firm</div>
+      <div class="site-header-title">Weekly Incident Bulletin</div>
+      <div class="site-header-tag">K-12 Technology &amp; AI Risk Intelligence</div>
+    </div>
+    <div class="issue-meta">
+      <div class="issue-meta-item"><span class="issue-meta-label">Issue</span><span class="issue-meta-value">008</span></div>
+      <div class="issue-meta-item"><span class="issue-meta-label">Week of</span><span class="issue-meta-value">Week of April 20, 2026</span></div>
+      <div class="issue-meta-item"><span class="issue-meta-label">Incidents</span><span class="issue-meta-value">3</span></div>
+    </div>
+  </div>
+</header>
+
+<div class="page-body">
+  <div class="content-grid">
+    <div class="main-col">
+      <div class="section-bar">This Week's Summary</div>
+      <div class="summary-block">This week produced three distinct compliance signals for K-12 districts. Massachusetts became the first state to issue formal guidance directing schools to investigate AI deepfakes as potential crimes, following a Boston Globe investigation that found only nine of 113 Massachusetts district policies addressed AI-generated sexual harassment. The U.S. Department of Education found four Kansas school districts in violation of FERPA and Title IX after an eight-month investigation, issuing proposed resolution agreements that include the threat of federal funding termination. And the 2026 CoSN conference in Chicago surfaced a consistent message from FERPA experts: the greatest threat to student data privacy is not a cyberattack but a routine human error, and districts that treat FERPA as a technology problem rather than a staff culture problem will keep making preventable mistakes.</div>
+
+      <div class="section-bar dark-bar">Incidents</div>
+
+      <!-- INCIDENT 1: Massachusetts deepfake guidance -->
+      <div class="incident" style="border-top:3px solid var(--red);">
+        <div class="incident-header">
+          <div class="incident-num" style="background:var(--red);">1</div>
+          <div class="incident-title-block">
+            <div style="font-size:10px;font-weight:700;letter-spacing:0.15em;text-transform:uppercase;color:var(--red);margin-bottom:4px;">Breaking</div>
+            <div class="incident-title">Massachusetts issues first state-level guidance directing schools to investigate AI deepfakes as crimes, after Boston Globe investigation finds only nine of 113 districts have policies addressing AI sexual harassment</div>
+            <div class="incident-source">Boston Globe, Mass.gov &middot; April 15, 2026</div>
+          </div>
+        </div>
+        <div class="field-label">What happened</div>
+        <div class="incident-field">On April 15, 2026, Governor Maura Healey and the Massachusetts Department of Elementary and Secondary Education issued formal guidance to school districts directing them to investigate AI-generated deepfake images of students promptly and treat their creation and sharing as a crime. The guidance was issued after a Boston Globe investigation found that only nine of 113 Massachusetts school district policies posted on the Massachusetts Association of School Committees website addressed AI-generated sexual harassment, and only five stated that disciplinary action would be taken against students who used AI to create harmful images of others. Commissioner Pedro Martinez signed the letter, which states that district and school leaders must investigate promptly when they receive a complaint related to the creation of AI deepfakes. The guidance also clarifies that deepfakes can trigger mandated reporting requirements for teachers and other staff. Governor Healey, who described herself as appalled by one district's inaction after a middle school student's image was used to create a fake nude photo that circulated among classmates, called on districts to act. According to the Center for Democracy and Technology, 15 percent of students nationally reported seeing sexually explicit deepfakes of someone associated with their school in the last school year.</div>
+        <div class="field-label">Who's affected</div>
+        <div class="incident-field">All Massachusetts districts immediately. All districts nationally should treat this as the standard that states will now expect: a written policy, a documented response protocol, and staff training. Massachusetts is the fourth state with a confirmed K-12 deepfake incident receiving gubernatorial attention this year, following Pennsylvania, Illinois, and New Hampshire. The pattern is national.</div>
+        <div class="field-label red">Compliance Exposure</div>
+        <div class="incident-field">The Massachusetts guidance explicitly ties deepfake response obligations to Title IX and state anti-bullying and anti-discrimination law. A district without a written deepfake policy that receives a complaint and fails to investigate promptly now faces exposure on three fronts: Title IX for failing to address sexual harassment, state anti-bullying law, and potential mandated reporting violations if the content meets the threshold for harm to a child. Federal monitors reviewing Title IX compliance would ask: Does your harassment policy explicitly address AI-generated sexual content? What is your documented investigation protocol? Were victim support services provided and documented? Were mandated reporting obligations assessed?</div>
+        <div class="action-box">
+          <div class="action-label">Recommended Action</div>
+          This week, check your district's harassment and sexual misconduct policy for explicit language addressing AI-generated sexual content involving students. If it is not there, add it before the end of the school year. Then confirm your Title IX coordinator is aware of the mandated reporting dimension: in Massachusetts and in many states, the creation of a fake nude image of a minor may constitute child pornography under state law regardless of whether the image is technically accurate. Your counselors and administrators need to know that a deepfake complaint is not a discipline referral, it is a potential crime requiring a structured response. Document the policy review and any training conducted.
+        </div>
+        <div class="workflow-tag"><div class="workflow-label">Workflow Impact</div>Compliance &amp; Reporting: Confirm Title IX policy explicitly addresses AI-generated sexual content, document the investigation protocol, and confirm mandated reporting obligations are understood by all staff who receive student complaints</div>
+      </div>
+
+      <!-- INCIDENT 2: Kansas FERPA/Title IX findings -->
+      <div class="incident">
+        <div class="incident-header">
+          <div class="incident-num">2</div>
+          <div class="incident-title-block">
+            <div class="incident-title">U.S. Department of Education finds four Kansas school districts violated FERPA and Title IX, issues proposed resolution agreements with federal funding termination as a potential consequence</div>
+            <div class="incident-source">U.S. Department of Education, KCTV5, KMUW &middot; April 17, 2026</div>
+          </div>
+        </div>
+        <div class="field-label">What happened</div>
+        <div class="incident-field">On April 17, 2026, the U.S. Department of Education announced that Kansas City, Kansas Public School District, Olathe Public Schools, Shawnee Mission School District, and Topeka Public Schools violated federal law following an eight-month investigation launched in August 2025. The Department's Student Privacy Policy Office found all four districts in violation of FERPA for having policies that prevented schools from notifying parents whether their children were using different names or pronouns at school, including on diplomas, even when parents requested access to those records. The Department's Office for Civil Rights found Kansas City, Kansas and Topeka violated Title IX for policies allowing students to use facilities and participate in athletics based on gender identity. Olathe and Shawnee Mission were found in violation of Title IX for restroom and locker room access policies. Kansas City, Kansas Public Schools was also found to have denied OCR access to information during the investigation, a separate violation. The Department issued proposed resolution agreements requiring the districts to change their policies and notified them that failure to reach agreement could result in termination of federal funding through administrative or judicial proceedings.</div>
+        <div class="field-label">Who's affected</div>
+        <div class="incident-field">All four Kansas districts directly. All districts nationally that have policies governing student name and pronoun use at school should review those policies against current FERPA parental access requirements. The investigation was launched following a complaint from the Defense of Freedom Institute, a conservative nonprofit. The enforcement approach represents an active federal compliance posture on parental access to student records that applies regardless of a district's views on underlying policy questions.</div>
+        <div class="field-label red">Compliance Exposure</div>
+        <div class="incident-field">The FERPA finding is the most broadly applicable compliance signal here. The Department's position is that any district policy that prevents school staff from disclosing to a parent, upon request, information about their child's name, pronouns, or gender-related school documents violates FERPA's parental access provisions. Federal monitors would ask: Do any of your district policies instruct staff to withhold information about a student from a requesting parent in ways that are not explicitly authorized by FERPA? Does your district have documented procedures for responding to parental records requests? Were any records requests denied or delayed in the past 12 months, and was that documented? For districts with gender support plans or similar documents: are those documents treated as education records accessible to parents under FERPA?</div>
+        <div class="action-box"><div class="action-label">Recommended Action</div>This week, ask your district's legal counsel to review any policies that govern what staff may or may not disclose to parents about students. The specific question is whether any such policy, in practice, prevents a parent from accessing education records they are entitled to under FERPA. If yes, the policy needs to be revised. This is not a question about the underlying social policy. It is a question about whether your current practices are consistent with FERPA's parental access requirements as the Department is now enforcing them. Document the review and any changes made.</div>
+        <div class="workflow-tag"><div class="workflow-label">Workflow Impact</div>Compliance &amp; Reporting: Review policies governing parental access to student records and confirm no district policy instructs staff to withhold information from parents in ways that conflict with FERPA parental access provisions</div>
+      </div>
+
+      <!-- INCIDENT 3: CoSN FERPA human error -->
+      <div class="incident">
+        <div class="incident-header">
+          <div class="incident-num">3</div>
+          <div class="incident-title-block">
+            <div class="incident-title">CoSN 2026 conference in Chicago: FERPA experts warn that human error, not cyberattacks, remains the greatest threat to student privacy, and that under FERPA the school owns the risk even when the breach is the vendor's fault</div>
+            <div class="incident-source">Government Technology &middot; April 17, 2026</div>
+          </div>
+        </div>
+        <div class="field-label">What happened</div>
+        <div class="incident-field">At the 2026 Consortium for School Networking conference in Chicago, a session on April 14 focused on FERPA compliance surfaced findings that are directly applicable to every district. The presenter, who reviewed FERPA violations across districts, described a scenario that has produced real compliance consequences: a district staff member sends a routine email to parents using CC instead of BCC, and because the email involves a list of students receiving a specific service, every parent can now see which other students receive that service, turning directory information into a protected education record disclosure. The presenter's key finding: in an era where districts are hardening their digital infrastructure against cyberattacks, the dominant source of FERPA violations remains routine human behavior. A second finding addressed vendor risk: many districts operate under the assumption that their vendor has student data security covered. Under FERPA, that assumption is legally incorrect. The school owns the risk. The presenter referenced a breach involving 3 million records where a vendor left a cloud storage bucket at factory default settings, unlocked and unencrypted, as an example of vendor-caused exposure for which the district bears FERPA responsibility. He also described a teacher who copied IEPs, evaluations, and progress notes to a personal Gmail account upon leaving the district, an act a court confirmed violated FERPA.</div>
+        <div class="field-label">Who's affected</div>
+        <div class="incident-field">Every district. The CC-versus-BCC error, the departing-teacher data copy, and the unlocked vendor storage bucket are not hypotheticals. They are documented incidents. Any district that has not conducted staff FERPA training in the past 12 months, or that has not reviewed vendor data agreements this school year, is operating with known exposure.</div>
+        <div class="field-label red">Compliance Exposure</div>
+        <div class="incident-field">The CoSN session reinforced two compliance principles that federal monitors apply during reviews. First, the school official exception under FERPA, which allows vendors to access student data to perform services for the district, does not transfer FERPA liability to the vendor. The district remains responsible for what happens to that data. Second, directory information is not always safe to share. When directory information is combined with other data in a way that reveals a student's protected status, the combined disclosure becomes a FERPA violation. Federal monitors would ask: When did staff last receive FERPA training? What is your documented process for reviewing vendor data agreements? How does your district handle departing employees who have had access to student records?        </div>
+        <div class="action-box"><div class="action-label">Recommended Action</div>Three actions, each addressable this week. First, confirm when your district last conducted all-staff FERPA training. If it was more than 12 months ago, schedule it before the end of the school year. Pay specific attention to the CC-versus-BCC scenario, departing employee data handling, and what constitutes a student education record in digital environments. Second, review your vendor contracts for at least your top five student data systems and confirm each one includes a provision making clear the vendor is operating under the school official exception and that the district retains FERPA responsibility. If any contract is silent on this, flag it for your next renewal. Third, confirm your offboarding process for departing staff includes a step that revokes access to student data systems and documents that revocation.</div>
+        <div class="workflow-tag"><div class="workflow-label">Workflow Impact</div>Student Data Privacy: Schedule all-staff FERPA training, review vendor contracts for school official exception language, and confirm departing employee data access revocation is documented</div>
+      </div>
+
+      <div class="section-bar" style="margin-top:32px;">References</div>
+      <div class="references-section">
+        <div class="ref-incident-title">Massachusetts issues guidance directing schools to investigate AI deepfakes as crimes</div>
+        <div class="ref-citation">[1] Mass.gov. &ldquo;Governor Healey Provides Guidance to Schools to Investigate Deepfake Images and Videos to Protect Students.&rdquo; April 15, 2026. <a href="https://www.mass.gov/news/governor-healey-provides-guidance-to-schools-to-investigate-deepfake-images-and-videos-to-protect-students">https://www.mass.gov/news/governor-healey-provides-guidance-to-schools-to-investigate-deepfake-images-and-videos-to-protect-students</a></div>
+        <div class="ref-citation">[2] Boston Globe. &ldquo;Massachusetts Education Officials Issue Deepfake Guidance.&rdquo; April 15, 2026. <a href="https://www.bostonglobe.com/2026/04/15/metro/ai-deepfakes-in-massachusetts-schools/">https://www.bostonglobe.com/2026/04/15/metro/ai-deepfakes-in-massachusetts-schools/</a></div>
+
+        <div class="ref-incident-title">U.S. Department of Education finds four Kansas districts violated FERPA and Title IX</div>
+        <div class="ref-citation">[1] U.S. Department of Education. &ldquo;US Department of Education Finds Four Kansas School Districts Violated Federal Law.&rdquo; April 17, 2026. <a href="https://www.ed.gov/about/news/press-release/us-department-of-education-finds-four-kansas-school-districts-violated-federal-law">https://www.ed.gov/about/news/press-release/us-department-of-education-finds-four-kansas-school-districts-violated-federal-law</a></div>
+        <div class="ref-citation">[2] KCTV5. &ldquo;Three Kansas City-area school districts violated federal law, Department of Ed says.&rdquo; April 17, 2026. <a href="https://www.kctv5.com/2026/04/18/three-kansas-city-area-school-districts-violated-federal-law-department-ed-says/">https://www.kctv5.com/2026/04/18/three-kansas-city-area-school-districts-violated-federal-law-department-ed-says/</a></div>
+        <div class="ref-citation">[3] KMUW. &ldquo;U.S. Education Department says 4 Kansas districts broke federal law with gender identity policies.&rdquo; April 20, 2026. <a href="https://www.kmuw.org/education/2026-04-20/u-s-education-department-says-4-kansas-districts-broke-federal-law-with-gender-identity-policies">https://www.kmuw.org/education/2026-04-20/u-s-education-department-says-4-kansas-districts-broke-federal-law-with-gender-identity-policies</a></div>
+
+        <div class="ref-incident-title">CoSN 2026: Human error remains greatest threat to FERPA</div>
+        <div class="ref-citation">[1] Government Technology. &ldquo;CoSN 2026: Why Human Error Remains Greatest Threat to FERPA.&rdquo; April 17, 2026. <a href="https://www.govtech.com/education/k-12/cosn-2026-why-human-error-remains-greatest-threat-to-ferpa">https://www.govtech.com/education/k-12/cosn-2026-why-human-error-remains-greatest-threat-to-ferpa</a></div>
+      </div>
+    </div>
+
+    <!-- SIDEBAR -->
+    <div class="sidebar">
+      <div class="stat-card">
+        <div class="stat-number">9 of 113</div>
+        <div class="stat-label">By the Numbers</div>
+        <div class="stat-context">The number of Massachusetts school district policies, out of 113 reviewed by the Boston Globe, that addressed AI-generated sexual harassment. Only five of those nine stated that disciplinary action would be taken against students who create harmful images of classmates.</div>
+        <div class="stat-source">Boston Globe, April 2026</div>
+      </div>
+
+      <div class="sidebar-card">
+        <div class="sidebar-card-title">Policy Watch</div>
+        <div class="policy-item">
+          <div>Massachusetts is now the first state to issue formal guidance directing schools to investigate AI deepfakes as crimes. Pennsylvania's governor convened a roundtable on the issue in March. Illinois police opened a criminal investigation at Lake Zurich in April. New Hampshire had a confirmed incident in fall 2025. The pattern across four states in five months signals that state-level mandates on deepfake response protocols are coming. Districts without written policies are behind a standard that is now being set by official state guidance, not just best practice recommendations.</div>
+          <div class="policy-action">All districts: Add AI-generated sexual content to your harassment policy before the end of the school year. Do not wait for your state to issue guidance. Massachusetts has now set a documented standard that other states will follow.</div>
+        </div>
+        <div class="policy-item">
+          <div>The Kansas FERPA findings reflect a specific and active federal enforcement posture: parental access to student records, including records related to name and pronoun use at school, is a FERPA compliance priority. The Department issued a Dear Colleague Letter to state superintendents in March designating this as a priority concern. The April 17 Kansas findings are the enforcement action that followed.</div>
+          <div class="policy-action">All districts: Review policies governing what staff may disclose to parents about their child and confirm no policy, in practice, prevents a parent from accessing education records they are entitled to under FERPA.</div>
+        </div>
+      </div>
+
+      <div class="sidebar-card">
+        <div class="sidebar-card-title">Tool Alerts</div>
+        <div class="tool-row">
+          <span class="tool-name">All student data vendors</span>
+          <span class="tool-change">CoSN 2026 confirmed: under FERPA, the school owns the risk when a vendor causes a breach. Review your top five student data vendor contracts this week for school official exception language. A contract silent on this does not protect your district.</span>
+        </div>
+        <div class="tool-row">
+          <span class="tool-name">Staff email systems</span>
+          <span class="tool-change">The CC-versus-BCC error described at CoSN 2026 is the single most common FERPA violation type. Any email that combines directory information with service enrollment data creates a protected record. Schedule staff training before the end of the school year.</span>
+        </div>
+      </div>
+
+      <div class="sidebar-card" style="background:#1B3A4B;">
+        <div class="sidebar-card-title" style="color:#2E75B6;border-bottom-color:#2E75B6;">Want More?</div>
+        <div style="font-size:13px;color:rgba(255,255,255,0.6);line-height:1.7;">
+          <strong style="color:#fff;display:block;margin-bottom:6px;">The Tool Vault</strong>
+          AI tools are moving faster than your documentation. The Tool Vault is where K-12 leaders go to close that gap.<br><br>
+          <strong style="color:rgba(255,255,255,0.85);">The Weekly Incident Bulletin</strong> surfaces incidents each Monday that create real audit risk, explains what a federal monitor would look for, and tells you exactly what to do. Free for K-12 administrators and compliance leaders.<br><br>
+          <strong style="color:rgba(255,255,255,0.85);">The District Filing</strong> is a free weekly intelligence report with a full operational review of one AI tool per issue, scored across vendor support, data handling, and workflow fit, with a downloadable Tool Spotlight Card. <a href="https://www.languagefirm.org/districtfilingarchive" style="color:#2E75B6;">View the archive.</a><br><br>
+          <strong style="color:rgba(255,255,255,0.85);">The Federal Findings Digest</strong> is the monthly roundup of federal AI policy movement, published by The Language Firm. <a href="https://www.languagefirm.org/digest-archive" style="color:#2E75B6;">View the archive.</a><br><br>
+          <a href="https://languagefirm.org/toolvault" style="display:inline-block;background:#2E75B6;color:#fff;font-size:11px;font-weight:700;letter-spacing:0.08em;text-transform:uppercase;padding:8px 16px;text-decoration:none;margin-top:4px;">Enter the Vault &rarr;</a>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<footer class="site-footer">
+  <div class="site-footer-inner">
+    <div class="footer-about">
+      <strong>The Weekly Incident Bulletin</strong> is published every Monday by The Language Firm. K-12 AI and technology incidents with compliance analysis, recommended actions, and workflow impact tags. Built for administrators, tech coordinators, and compliance leaders.
+    </div>
+    <div class="footer-upsell">
+      <strong>Questions?</strong>
+      <a href="mailto:jcs@thelanguagefirm.org" style="color:#2E75B6;">jcs@thelanguagefirm.org</a>
+    </div>
+  </div>
+  <div class="footer-bottom">
+    <div class="footer-legal"><a href="https://languagefirm.org">languagefirm.org</a> &nbsp;&middot;&nbsp; &copy; The Language Firm. All rights reserved.</div>
+  </div>
+</footer>
+
+</body>
+</html>
