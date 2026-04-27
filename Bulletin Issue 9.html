@@ -1,0 +1,281 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Weekly Incident Bulletin, The Language Firm</title>
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;700&family=Fraunces:wght@600;700&display=swap" rel="stylesheet">
+<style>
+:root{--dark:#1B3A4B;--accent:#2E75B6;--light:#E8F0F8;--light2:#F5F9FC;--amber:#E67E22;--green:#27AE60;--green-bg:#D5E8D4;--red:#C0392B;--gray:#777;--gray-lt:#CCC;--body-text:#333;--bg:#F2F2F2;--white:#FFF;}
+*{margin:0;padding:0;box-sizing:border-box;}
+body{background:var(--bg);font-family:'DM Sans',-apple-system,sans-serif;color:var(--body-text);line-height:1.6;}
+.site-header{background:var(--dark);border-bottom:3px solid var(--accent);padding:0;}
+.site-header-inner{max-width:1100px;margin:0 auto;padding:20px 40px;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:12px;}
+.site-header-brand{display:flex;flex-direction:column;}
+.site-header-org{font-size:10px;font-weight:700;letter-spacing:3px;text-transform:uppercase;color:rgba(255,255,255,0.4);margin-bottom:3px;}
+.site-header-title{font-family:'Fraunces',serif;font-size:26px;font-weight:700;color:var(--white);line-height:1.1;}
+.site-header-tag{font-size:13px;color:var(--accent);margin-top:2px;}
+.issue-meta{display:flex;gap:24px;flex-wrap:wrap;}
+.issue-meta-item{display:flex;flex-direction:column;align-items:flex-end;}
+.issue-meta-label{font-size:9px;font-weight:700;letter-spacing:0.15em;text-transform:uppercase;color:rgba(255,255,255,0.35);}
+.issue-meta-value{font-size:14px;font-weight:500;color:var(--white);}
+.page-body{max-width:1100px;margin:0 auto;padding:40px 40px;}
+.content-grid{display:grid;grid-template-columns:1fr 300px;gap:32px;align-items:start;}
+.main-col{}
+.section-bar{padding:8px 0;font-size:11px;font-weight:700;letter-spacing:0.1em;text-transform:uppercase;color:var(--accent);border-bottom:2px solid var(--accent);margin-bottom:20px;}
+.section-bar.dark-bar{color:var(--dark);border-bottom-color:var(--dark);}
+.summary-block{background:var(--white);border-left:4px solid var(--accent);padding:20px 24px;margin-bottom:32px;font-size:15px;line-height:1.7;color:var(--body-text);box-shadow:0 1px 6px rgba(0,0,0,0.05);}
+.incident{background:var(--white);padding:28px;margin-bottom:20px;box-shadow:0 1px 6px rgba(0,0,0,0.05);border-top:3px solid var(--light);}
+.incident:hover{border-top-color:var(--accent);}
+.incident-header{display:flex;gap:14px;margin-bottom:18px;align-items:flex-start;}
+.incident-num{background:var(--dark);color:var(--white);width:38px;height:38px;border-radius:4px;display:flex;align-items:center;justify-content:center;font-size:18px;font-weight:700;flex-shrink:0;}
+.incident-title{font-size:17px;font-weight:700;color:var(--dark);line-height:1.3;}
+.incident-source{font-size:12px;color:var(--gray);margin-top:3px;}
+.field-label{font-size:10px;font-weight:700;letter-spacing:0.15em;text-transform:uppercase;color:var(--gray);margin-bottom:5px;margin-top:16px;}
+.field-label.red{color:var(--red);}
+.incident-field{font-size:14px;line-height:1.7;color:#444;word-break:break-word;}
+.action-box{background:var(--green-bg);border-left:4px solid var(--green);padding:14px 18px;margin-top:16px;font-size:14px;line-height:1.65;font-weight:600;color:var(--dark);word-break:break-word;}
+.action-label{font-size:10px;font-weight:700;letter-spacing:0.15em;text-transform:uppercase;color:#1E8449;margin-bottom:6px;}
+.workflow-tag{background:#FFF8E1;border-left:4px solid var(--amber);padding:10px 16px;margin-top:10px;font-size:13px;color:#555;line-height:1.5;word-break:break-word;}
+.workflow-label{font-size:10px;font-weight:700;letter-spacing:0.15em;text-transform:uppercase;color:var(--amber);margin-bottom:4px;}
+.sidebar{}
+.sidebar-card{background:var(--white);padding:20px;margin-bottom:20px;box-shadow:0 1px 6px rgba(0,0,0,0.05);}
+.sidebar-card-title{font-size:10px;font-weight:700;letter-spacing:0.15em;text-transform:uppercase;color:var(--accent);border-bottom:2px solid var(--light);padding-bottom:8px;margin-bottom:14px;}
+.policy-item{padding-left:12px;border-left:2px solid var(--gray-lt);margin-bottom:14px;font-size:13px;line-height:1.6;color:#444;}
+.policy-item:last-child{margin-bottom:0;}
+.policy-action{font-size:12px;font-weight:600;color:var(--dark);margin-top:4px;}
+.tool-row{display:flex;gap:12px;margin-bottom:12px;font-size:13px;align-items:flex-start;}
+.tool-row:last-child{margin-bottom:0;}
+.tool-name{font-weight:700;color:var(--dark);min-width:110px;max-width:110px;flex-shrink:0;line-height:1.5;}
+.tool-change{color:#555;line-height:1.6;word-break:break-word;overflow-wrap:break-word;flex:1;}
+.stat-card{background:var(--dark);padding:24px;text-align:center;margin-bottom:20px;overflow:hidden;}
+.stat-number{font-family:'Fraunces',serif;font-size:36px;font-weight:700;color:var(--white);line-height:1.2;word-break:break-word;overflow-wrap:break-word;}
+.stat-label{font-size:9px;font-weight:700;letter-spacing:0.2em;text-transform:uppercase;color:rgba(255,255,255,0.4);margin:6px 0 10px;}
+.stat-context{font-size:13px;color:rgba(255,255,255,0.7);line-height:1.6;}
+.stat-source{font-size:11px;color:rgba(255,255,255,0.35);margin-top:10px;padding-top:10px;border-top:1px solid rgba(255,255,255,0.1);}
+.references-section{background:var(--white);padding:24px 28px;margin-top:8px;box-shadow:0 1px 6px rgba(0,0,0,0.05);}
+.ref-incident-title{font-size:12px;font-weight:700;color:#555;margin-bottom:4px;margin-top:14px;}
+.ref-incident-title:first-child{margin-top:0;}
+.ref-citation{font-size:12px;color:#777;padding-left:12px;line-height:1.6;margin-bottom:2px;word-break:break-word;}
+.ref-citation a{color:var(--accent);}
+.site-footer{background:var(--dark);margin-top:60px;padding:40px 40px;}
+.site-footer-inner{max-width:1100px;margin:0 auto;display:grid;grid-template-columns:2fr 1fr;gap:40px;align-items:start;}
+.footer-about{font-size:13px;color:rgba(255,255,255,0.5);line-height:1.7;}
+.footer-about strong{color:var(--white);}
+.footer-upsell{font-size:13px;line-height:1.7;color:rgba(255,255,255,0.5);}
+.footer-upsell strong{color:var(--white);display:block;margin-bottom:6px;}
+.footer-bottom{max-width:1100px;margin:24px auto 0;padding-top:20px;border-top:1px solid rgba(255,255,255,0.1);display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:8px;}
+.footer-legal{font-size:11px;color:rgba(255,255,255,0.3);}
+.footer-legal a{color:var(--accent);text-decoration:none;}
+@media(max-width:900px){
+  .content-grid{grid-template-columns:1fr;}
+  .site-footer-inner{grid-template-columns:1fr;}
+  .site-header-inner,.page-body,.site-footer{padding-left:20px;padding-right:20px;}
+  .issue-meta{justify-content:flex-start;}
+  .issue-meta-item{align-items:flex-start;}
+}
+</style>
+</head>
+<body>
+
+<header class="site-header">
+  <div class="site-header-inner">
+    <div class="site-header-brand">
+      <div class="site-header-org">The Language Firm</div>
+      <div class="site-header-title">Weekly Incident Bulletin</div>
+      <div class="site-header-tag">K-12 Technology &amp; AI Risk Intelligence</div>
+    </div>
+    <div class="issue-meta">
+      <div class="issue-meta-item"><span class="issue-meta-label">Issue</span><span class="issue-meta-value">009</span></div>
+      <div class="issue-meta-item"><span class="issue-meta-label">Week of</span><span class="issue-meta-value">Week of April 27, 2026</span></div>
+      <div class="issue-meta-item"><span class="issue-meta-label">Incidents</span><span class="issue-meta-value">4</span></div>
+    </div>
+  </div>
+</header>
+
+<div class="page-body">
+  <div class="content-grid">
+    <div class="main-col">
+      <div class="section-bar">This Week's Summary</div>
+      <div class="summary-block">This week produced three incidents that together define the current state of K-12 student data risk. Los Angeles Unified, the second-largest school district in the country, voted unanimously to restrict classroom screen time and require a public report on all existing classroom technology contracts, a move that will force the district to account for every vendor currently in students' hands. Missouri's State Treasurer's Office published student names, parent emails, scholarship amounts, and school names for every MOScholars participant on a public website for nearly a year in direct violation of state law, surfacing a gap most districts have not closed: data held by partner state agencies on your students is still your compliance obligation. A federal class action against Curriculum Associates, the Billerica, Massachusetts company behind i-Ready, has survived early motions and now heads toward discovery, alleging the platform transmits student data in real time to third parties including Google, Clever, and Munetrix without proper consent. i-Ready is used by more than 14 million students in grades K-8. And a North Carolina student's fight against a false AI detection accusation has surfaced a gap every district needs to close before the end of the school year: when a teacher uses an AI detector to flag a student, what is the district's documented standard for how that accusation is evaluated, appealed, and resolved?</div>
+
+      <div class="section-bar dark-bar">Incidents</div>
+
+      <!-- INCIDENT 1: LAUSD screen time -->
+      <div class="incident" style="border-top:3px solid var(--red);">
+        <div class="incident-header">
+          <div class="incident-num" style="background:var(--red);">1</div>
+          <div class="incident-title-block">
+            <div style="font-size:10px;font-weight:700;letter-spacing:0.15em;text-transform:uppercase;color:var(--red);margin-bottom:4px;">Breaking</div>
+            <div class="incident-title">Los Angeles Unified votes unanimously to restrict classroom screen time and require a public audit of all classroom technology contracts, becoming the first major school district to impose formal screen time limits</div>
+            <div class="incident-source">EdSource, District Administration &middot; April 22, 2026</div>
+          </div>
+        </div>
+        <div class="field-label">What happened</div>
+        <div class="incident-field">The Los Angeles Unified School District board voted 6-0 on April 22, 2026, to restrict classroom screen time across grade levels, following months of pressure from a parent group called Schools Beyond Screens. The resolution directs staff to develop a policy by June 2026 ahead of the upcoming school year. It calls for developmentally appropriate guardrails on instructional technology for all grade levels, restricts younger students' use of school-issued devices, and prohibits student-led use of YouTube and other streaming platforms during instruction. Critically, it also requires the district to present a public report on all existing classroom technology contracts. The vote makes LAUSD the first major school district in the United States to impose formal classroom screen time limits. The action comes as California's Phone-Free School Act, Assembly Bill 3216, takes effect July 1, 2026, requiring every school district, charter school, and county office of education in the state to adopt a policy restricting or prohibiting student smartphone use during the school day. Board member and co-sponsor Karla Griego stated that a policy addressing screen time for the district's youngest learners is long overdue. LAUSD serves approximately 540,000 students.</div>
+        <div class="field-label">Who's affected</div>
+        <div class="incident-field">LAUSD's 540,000 students and every teacher and administrator who relies on school-issued devices for instruction. All California districts face a July 1, 2026 deadline to adopt a smartphone restriction policy under AB 3216, regardless of what LAUSD does. Districts outside California should treat the LAUSD vote as a signal about where policy is heading nationally: parent pressure on screen time is organized and effective, and districts without a written, documented position on classroom technology use will face that pressure without a policy to point to.</div>
+        <div class="field-label red">Compliance Exposure</div>
+        <div class="incident-field">The requirement that LAUSD produce a public report on all classroom technology contracts is the compliance signal that applies beyond screen time. If your district cannot produce a current list of every classroom technology vendor, what data each one accesses, and what the contract terms are, then a public records request, a parent complaint, or a state audit could expose a gap your district cannot close quickly. California's AB 3216 also creates a documentation requirement: the smartphone restriction policy must be updated every five years, and exceptions for IEP or 504 accommodations must be explicitly addressed in writing. Districts that draft a cellphone ban without considering students with disabilities face immediate special education compliance questions.</div>
+        <div class="action-box">
+          <div class="action-label">Recommended Action</div>
+          California districts: confirm your AB 3216 compliant smartphone restriction policy is drafted and scheduled for board approval before July 1. The policy must address IEP and 504 exceptions explicitly. All districts: compile a current inventory of every classroom technology tool in active use, the vendor behind it, what student data it accesses, and the contract terms. The LAUSD board voted to make this list public. You should know what is on your list before anyone asks for it. If any tool on that list lacks a signed data processing agreement, flag it for immediate review.
+        </div>
+        <div class="workflow-tag"><div class="workflow-label">Workflow Impact</div>Instructional Technology: Compile a current classroom technology contract inventory and confirm AB 3216 compliant smartphone policy is in place before July 1, with explicit IEP and 504 accommodation language</div>
+      </div>
+
+      <!-- INCIDENT 2: Missouri MOScholars -->
+      <div class="incident">
+        <div class="incident-header">
+          <div class="incident-num">2</div>
+          <div class="incident-title-block">
+            <div class="incident-title">Missouri Treasurer's Office publishes student names, parent emails, scholarship amounts, and school names for all MOScholars participants on public website for nearly a year, violating the state law that explicitly prohibits it</div>
+            <div class="incident-source">Missouri Independent &middot; April 21, 2026</div>
+          </div>
+        </div>
+        <div class="field-label">What happened</div>
+        <div class="incident-field">The Missouri State Treasurer's Office inadvertently published a directory of students enrolled in the MOScholars private school voucher program on its public website for nearly a year, dating back to at least May 2025. The data included students' names, their parents' email addresses, scholarship funding amounts, and the names of the private schools they attend. The data was embedded in a spreadsheet file posted to the treasurer's website. The embedded data was accessible to anyone who manipulated the file. The Missouri Independent discovered the exposure and notified the treasurer's office, which removed the file. The law governing MOScholars explicitly states that no personally identifiable information of any student may be posted on the treasurer's website. State Treasurer Vivek Malek's office confirmed the spreadsheet could be manipulated to reveal the student data but characterized the information as directory information that is not generally considered harmful. State Sen. Rick Brattin, chairman of the Senate Education Committee, called the incident a massive oversight. The treasurer's office had a prior data exposure in 2024, which a spokesperson called a clerical error.</div>
+        <div class="field-label">Who's affected</div>
+        <div class="incident-field">All Missouri families enrolled in MOScholars across three years of the program. Every district whose students participate in a state-administered voucher, scholarship, or grant program should treat this as a prompt: when your students' data is held by another state agency, that agency's handling of that data is still a FERPA compliance concern for your district. You are not always the agency responsible for a breach, but you may carry a notification obligation when your students are the affected population.</div>
+        <div class="field-label red">Compliance Exposure</div>
+        <div class="incident-field">The Missouri law governing MOScholars explicitly prohibits posting student personally identifiable information on the treasurer's website. Publishing it for nearly a year, then characterizing it as directory information after removal, does not resolve the statutory violation. For districts: the exposure was not in the visible spreadsheet content but in embedded metadata that staff who posted the file did not know was there. This is the specific gap the CoSN 2026 FERPA session identified last week: staff who publish files do not always know what data is embedded in them. Federal monitors would ask whether your district has a procedure for reviewing file contents before posting anything to a public website and whether your families received notification that their data was publicly accessible through a partner agency.</div>
+        <div class="action-box"><div class="action-label">Recommended Action</div>Two actions this week. First, if your district participates in any state-administered voucher, scholarship, or grant program, contact the administering agency to confirm what student data it holds, how that data is stored and shared, and what its breach notification procedures are. Ask specifically whether any student data has been posted to a public website in any form, including as embedded or linked data in downloadable files. Second, review any files your district has posted to a public website. Open those files and check for embedded sheets, hidden columns, or metadata that may not be visible in the default view. Posting a file with hidden student data is a FERPA violation even if no one knew it was there.</div>
+        <div class="workflow-tag"><div class="workflow-label">Workflow Impact</div>Student Data Privacy: Confirm breach notification procedures for state-administered programs involving your students, and audit public-facing downloadable files for embedded or hidden student data</div>
+      </div>
+
+      <!-- INCIDENT 3: Curriculum Associates i-Ready lawsuit -->
+      <div class="incident">
+        <div class="incident-header">
+          <div class="incident-num">3</div>
+          <div class="incident-title-block">
+            <div class="incident-title">Federal class action against Curriculum Associates, maker of i-Ready, survives motion to dismiss and advances toward discovery, alleging the platform transmits student data to Google, Clever, and Munetrix in real time without proper consent</div>
+            <div class="incident-source">EdTech Law Center, The Educators Room &middot; April 2026</div>
+          </div>
+        </div>
+        <div class="field-label">What happened</div>
+        <div class="incident-field">A federal class action lawsuit filed December 22, 2025, against Curriculum Associates, Inc., the Billerica, Massachusetts company behind the i-Ready educational platform, is advancing in federal court in Massachusetts. Curriculum Associates filed a motion to dismiss on February 27, 2026. Plaintiffs filed their opposition on April 3, 2026. A federal judge has not yet ruled. The lawsuit, M.C. v. Curriculum Associates, alleges that the company unlawfully collects and shares student data without proper consent. Specifically, plaintiffs allege that i-Ready transmits student data in real time to third-party vendors including Google, Clever, and Munetrix, and that the company builds psychological and behavioral profiles on students that follow them beyond their time in the platform. Claims are brought under the Federal Wiretap Act, the California Invasion of Privacy Act, the California Comprehensive Computer Data Access and Fraud Act, and the Massachusetts Consumer Protection Act, as well as negligence and unjust enrichment. Curriculum Associates called the lawsuit an ideologically motivated crusade and denied the allegations. i-Ready is used by more than 14 million students in grades K-8. Curriculum Associates is a private-equity-backed company with approximately 2,700 employees and around $750 million in annual revenue.</div>
+        <div class="field-label">Who's affected</div>
+        <div class="incident-field">Any district using i-Ready, which is one of the most widely deployed reading and math diagnostic platforms in K-12. Districts that signed data processing agreements with Curriculum Associates should confirm what those agreements say about third-party data sharing with companies like Google, Clever, and Munetrix. If your DPA permits sharing with those companies, confirm your district was aware of and consented to that sharing. If your DPA does not address third-party sharing, the lawsuit's allegations indicate there may be undisclosed sharing your district did not authorize.</div>
+        <div class="field-label red">Compliance Exposure</div>
+        <div class="incident-field">Under FERPA, the school official exception that permits vendors to access student data requires that vendors use the data only for the purposes for which the district contracted with them. If Curriculum Associates is sharing student data with Google, Clever, or Munetrix in ways not disclosed to districts or not covered by the school official exception, districts that used i-Ready during the relevant period may have been party to FERPA violations they did not know about. Federal monitors would ask: What does your data processing agreement with Curriculum Associates say about third-party data sharing? Did your district review and approve all subprocessors? What notice did Curriculum Associates provide about how student data was transmitted beyond the platform?</div>
+        <div class="action-box"><div class="action-label">Recommended Action</div>Pull your current data processing agreement or vendor contract with Curriculum Associates. Look specifically for language on third-party sharing, subprocessors, and what companies the platform is permitted to transmit student data to. If the agreement is silent on these points or predates your current use of i-Ready, contact Curriculum Associates in writing this week to request current documentation of all third parties who receive student data through the platform. Keep a copy of everything you receive. If your district's legal counsel has not reviewed your i-Ready agreement since the lawsuit was filed, schedule that review now. Discovery in this case will produce documents about actual data flows that may be relevant to your district's compliance posture.</div>
+        <div class="workflow-tag"><div class="workflow-label">Workflow Impact</div>Vendor Management: Review i-Ready data processing agreement for third-party sharing language and request written documentation from Curriculum Associates of all subprocessors currently receiving student data through the platform</div>
+      </div>
+
+      <!-- INCIDENT 4: North Carolina AI detection false positive -->
+      <div class="incident">
+        <div class="incident-header">
+          <div class="incident-num">4</div>
+          <div class="incident-title-block">
+            <div class="incident-title">North Carolina student fights false AI detection accusation after teacher uses three detectors scoring 62, 75, and 87 percent probability, none of which meet the state's own published standard for proof</div>
+            <div class="incident-source">Government Technology &middot; April 24, 2026</div>
+          </div>
+        </div>
+        <div class="field-label">What happened</div>
+        <div class="incident-field">A North Carolina student named Canina was accused of using AI to write a class assignment after her teacher ran the paper through three different AI detection tools, which returned likelihood scores of 62 percent, 75 percent, and 87 percent for AI generation or significant AI assistance. Her mother, De Coster, a sociology professor at N.C. State, asked the teacher to review the Google Docs revision history showing Canina had written the assignment herself. The teacher declined. North Carolina's Department of Public Instruction has published AI guidelines that explicitly state AI detectors have proven not to be dependable and should never be used as the only factor when determining if a student cheated. The state's guidelines further direct schools to use great caution with AI detectors. Canina's case illustrates what happens when a district has state guidance but a teacher applies a different standard: an accusation is made, the student bears the burden of proof, and the district has no documented procedure for how such disputes are evaluated or appealed. Canina, described by her mother as an avid reader and strong writer with a highly developed vocabulary, told the News and Observer she is not going to change the way she writes.</div>
+        <div class="field-label">Who's affected</div>
+        <div class="incident-field">Every district that has not yet adopted a written policy on how AI detection tools may be used in academic integrity determinations. North Carolina's DPI has published guidance. Most states have not. Most districts have not translated whatever state guidance exists into a documented building-level procedure. Students with strong writing skills, English language learners, and students with disabilities are the populations most frequently flagged by AI detectors with false positives, according to North Carolina's own DPI guidance and research across multiple studies.</div>
+        <div class="field-label red">Compliance Exposure</div>
+        <div class="incident-field">An academic integrity accusation made solely on the basis of an AI detector score, without documentary review or student due process, creates two compliance risks. First, under Title VI and disability law, if a detection tool disproportionately flags students in protected classes, including ELL students, students with IEPs, and students whose writing quality exceeds the average, the district's use of that tool without safeguards may constitute discriminatory application of academic integrity standards. Second, a student who is disciplined based on an unreliable tool and denied an opportunity to present evidence may have a due process claim. In higher education, courts have already reversed disciplinary measures where AI detection was the sole basis for an accusation, including a 2026 case at Adelphi University in New York where a judge found the process arbitrary.</div>
+        <div class="action-box"><div class="action-label">Recommended Action</div>This week, confirm whether your district has a written policy on the use of AI detection tools in academic integrity determinations. If it does not, write one before the end of the school year. The policy should state: which AI detection tools, if any, are approved for use; that no accusation may be based solely on a detection score; that students must be given an opportunity to present evidence of their writing process, including revision history in Google Docs or similar platforms; and that a documented appeal process exists. Share North Carolina DPI's published guidance with your teaching staff now. It is the clearest existing standard on this issue and your staff can apply it immediately without waiting for a district policy to be finalized.</div>
+        <div class="workflow-tag"><div class="workflow-label">Workflow Impact</div>Instructional Technology: Adopt a written AI detection use policy before end of school year and share North Carolina DPI guidance with teachers as the interim standard for what constitutes acceptable evidence in academic integrity determinations</div>
+      </div>
+
+      <div class="section-bar" style="margin-top:32px;">References</div>
+      <div class="references-section">
+        <div class="ref-incident-title">Los Angeles Unified votes to restrict classroom screen time and audit technology contracts</div>
+        <div class="ref-citation">[1] EdSource. &ldquo;Los Angeles Unified to limit screen time for all students, prohibit use among youngest students.&rdquo; April 23, 2026. <a href="https://edsource.org/2026/classroom-screen-time-limits-policy/756523">https://edsource.org/2026/classroom-screen-time-limits-policy/756523</a></div>
+        <div class="ref-citation">[2] District Administration. &ldquo;Los Angeles schools adopt first major screen time restrictions.&rdquo; April 22, 2026. <a href="https://districtadministration.com/article/los-angeles-schools-adopt-first-major-screen-time-restrictions/">https://districtadministration.com/article/los-angeles-schools-adopt-first-major-screen-time-restrictions/</a></div>
+        <div class="ref-citation">[3] California Governor's Office. Assembly Bill 3216, Phone-Free School Act. Signed September 23, 2024. Effective July 1, 2026. <a href="https://www.gov.ca.gov/2024/09/23/governor-newsom-signs-legislation-to-limit-the-use-of-smartphones-during-school-hours/">https://www.gov.ca.gov/2024/09/23/governor-newsom-signs-legislation-to-limit-the-use-of-smartphones-during-school-hours/</a></div>
+
+        <div class="ref-incident-title">Missouri Treasurer publishes MOScholars student data on public website for nearly a year</div>
+        <div class="ref-citation">[1] Missouri Independent. &ldquo;Missouri treasurer's office posted MOScholars student data on its website for nearly a year.&rdquo; April 21, 2026. <a href="https://missouriindependent.com/2026/04/21/missouri-treasurers-office-posted-moscholars-student-data-on-its-website-for-nearly-a-year/">https://missouriindependent.com/2026/04/21/missouri-treasurers-office-posted-moscholars-student-data-on-its-website-for-nearly-a-year/</a></div>
+
+        <div class="ref-incident-title">North Carolina student fights false AI detection accusation</div>
+        <div class="ref-citation">[1] Government Technology. &ldquo;North Carolina Student Fights Accusation of AI Use.&rdquo; April 24, 2026. <a href="https://www.govtech.com/education/k-12/north-carolina-student-fights-accusation-of-ai-use">https://www.govtech.com/education/k-12/north-carolina-student-fights-accusation-of-ai-use</a></div>
+        <div class="ref-citation">[2] North Carolina Department of Public Instruction. AI Guidelines for K-12 Schools. 2024. <a href="https://www.dpi.nc.gov/districts-schools/classroom-resources/digital-teaching-and-learning/artificial-intelligence-guidance">https://www.dpi.nc.gov/districts-schools/classroom-resources/digital-teaching-and-learning/artificial-intelligence-guidance</a></div>
+
+        <div class="ref-incident-title">Federal class action against Curriculum Associates advances toward discovery</div>
+        <div class="ref-citation">[1] EdTech Law Center. M.C. v. Curriculum Associates, case tracker. <a href="https://edtech.law/cases/m-c-v-curriculum-associates/">https://edtech.law/cases/m-c-v-curriculum-associates/</a></div>
+        <div class="ref-citation">[2] The Educators Room. &ldquo;Lawsuit Targets i-Ready Maker Over Student Data Privacy Concerns.&rdquo; April 2026. <a href="https://theeducatorsroom.com/lawsuit-targets-i-ready-maker-over-student-data-privacy-concerns/">https://theeducatorsroom.com/lawsuit-targets-i-ready-maker-over-student-data-privacy-concerns/</a></div>
+      </div>
+    </div>
+
+    <!-- SIDEBAR -->
+    <div class="sidebar">
+      <div class="stat-card">
+        <div class="stat-number">14 million</div>
+        <div class="stat-label">By the Numbers</div>
+        <div class="stat-context">The number of K-8 students using i-Ready, the Curriculum Associates platform at the center of a federal class action alleging real-time student data transmission to Google, Clever, and Munetrix without proper consent. The case is active in federal court in Massachusetts.</div>
+        <div class="stat-source">EdTech Law Center, April 2026</div>
+      </div>
+
+      <div class="sidebar-card">
+        <div class="sidebar-card-title">Policy Watch</div>
+        <div class="policy-item">
+          <div>California's Phone-Free School Act, AB 3216, takes effect July 1, 2026. Every school district, charter school, and county office of education in California must have a policy restricting or prohibiting student smartphone use during the school day in place by that date. The policy must address exceptions for emergencies, medical needs, teacher-approved instructional use, and IEP or 504 plan requirements. LAUSD's vote is the first major district to go beyond smartphones to restrict all classroom screen time, which exceeds what AB 3216 requires but is permitted under the law.</div>
+          <div class="policy-action">California districts: adopt and board-approve your AB 3216 smartphone restriction policy before July 1, with explicit IEP and 504 language. All districts: begin drafting a broader classroom technology use policy before parent pressure makes it a crisis.</div>
+        </div>
+        <div class="policy-item">
+          <div>North Carolina's DPI has published guidance stating AI detectors are not dependable and must never be the sole basis for an academic integrity accusation. Most states have not issued comparable guidance. As AI detection false positives generate parent complaints and, in higher education, litigation, K-12 districts that have not adopted a written standard are increasingly vulnerable to due process and discrimination claims.</div>
+          <div class="policy-action">All districts: Adopt a written AI detection use standard before the end of the school year. Share North Carolina DPI's published guidance with teachers now as an interim standard.</div>
+        </div>
+        <div class="policy-item">
+          <div>The M.C. v. Curriculum Associates lawsuit is one of several active federal cases against widely used K-12 platforms. The EdTech Law Center is tracking active cases against i-Ready, IXL, and PowerSchool simultaneously. Discovery in these cases will produce documents about actual student data flows that may create additional compliance questions for districts that used these platforms during the relevant periods.</div>
+          <div class="policy-action">All districts using i-Ready, IXL, or PowerSchool: review your current data processing agreements with legal counsel before discovery begins producing new information about how these platforms handle student data.</div>
+        </div>
+      </div>
+
+      <div class="sidebar-card">
+        <div class="sidebar-card-title">Tool Alerts</div>
+        <div class="tool-row">
+          <span class="tool-name">i-Ready (Curriculum Associates)</span>
+          <span class="tool-change">Active federal class action alleges real-time student data sharing with Google, Clever, and Munetrix. Motion to dismiss pending. Review your DPA for third-party sharing language now, before discovery produces additional disclosures.</span>
+        </div>
+        <div class="tool-row">
+          <span class="tool-name">Clever</span>
+          <span class="tool-change">Named in M.C. v. Curriculum Associates as a third-party recipient of student data transmitted through i-Ready. If your district uses Clever as a single-sign-on platform, confirm your Clever DPA addresses what data it receives from other platforms in your tech stack.</span>
+        </div>
+        <div class="tool-row">
+          <span class="tool-name">AI detection tools (all vendors)</span>
+          <span class="tool-change">North Carolina DPI guidance explicitly states AI detectors are not dependable and should never be the sole basis for an accusation. Districts using Turnitin AI detection, GPTZero, or similar tools should confirm their academic integrity policy reflects this standard before the end of the school year.</span>
+        </div>
+        <div class="tool-row">
+          <span class="tool-name">YouTube (classroom use)</span>
+          <span class="tool-change">LAUSD has prohibited student-led YouTube use during instruction. Districts without explicit policies on streaming platform use during class lack a documented basis for consistent enforcement.</span>
+        </div>
+      </div>
+
+      <div class="sidebar-card" style="background:#1B3A4B;">
+        <div class="sidebar-card-title" style="color:#2E75B6;border-bottom-color:#2E75B6;">Want More?</div>
+        <div style="font-size:13px;color:rgba(255,255,255,0.6);line-height:1.7;">
+          <strong style="color:#fff;display:block;margin-bottom:6px;">The Tool Vault</strong>
+          AI tools are moving faster than your documentation. The Tool Vault is where K-12 leaders go to close that gap.<br><br>
+          <strong style="color:rgba(255,255,255,0.85);">The Weekly Incident Bulletin</strong> surfaces incidents each Monday that create real audit risk, explains what a federal monitor would look for, and tells you exactly what to do. Free for K-12 administrators and compliance leaders.<br><br>
+          <strong style="color:rgba(255,255,255,0.85);">The District Filing</strong> is a free weekly intelligence report with a full operational review of one AI tool per issue, scored across vendor support, data handling, and workflow fit, with a downloadable Tool Spotlight Card. <a href="https://www.languagefirm.org/districtfilingarchive" style="color:#2E75B6;">View the archive.</a><br><br>
+          <strong style="color:rgba(255,255,255,0.85);">The Federal Findings Digest</strong> is the monthly roundup of federal AI policy movement, published by The Language Firm. <a href="https://www.languagefirm.org/digest-archive" style="color:#2E75B6;">View the archive.</a><br><br>
+          <a href="https://languagefirm.org/toolvault" style="display:inline-block;background:#2E75B6;color:#fff;font-size:11px;font-weight:700;letter-spacing:0.08em;text-transform:uppercase;padding:8px 16px;text-decoration:none;margin-top:4px;">Enter the Vault &rarr;</a>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<footer class="site-footer">
+  <div class="site-footer-inner">
+    <div class="footer-about">
+      <strong>The Weekly Incident Bulletin</strong> is published every Monday by The Language Firm. K-12 AI and technology incidents with compliance analysis, recommended actions, and workflow impact tags. Built for administrators, tech coordinators, and compliance leaders.
+    </div>
+    <div class="footer-upsell">
+      <strong>Questions?</strong>
+      <a href="mailto:jcs@thelanguagefirm.org" style="color:#2E75B6;">jcs@thelanguagefirm.org</a>
+    </div>
+  </div>
+  <div class="footer-bottom">
+    <div class="footer-legal"><a href="https://languagefirm.org">languagefirm.org</a> &nbsp;&middot;&nbsp; &copy; The Language Firm. All rights reserved.</div>
+  </div>
+</footer>
+
+</body>
+</html>
