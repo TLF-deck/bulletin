@@ -1,0 +1,270 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Weekly Incident Bulletin, The Language Firm</title>
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;700&family=Fraunces:wght@600;700&display=swap" rel="stylesheet">
+<style>
+:root{--dark:#1B3A4B;--accent:#2E75B6;--light:#E8F0F8;--light2:#F5F9FC;--amber:#E67E22;--green:#27AE60;--green-bg:#D5E8D4;--red:#C0392B;--gray:#777;--gray-lt:#CCC;--body-text:#333;--bg:#F2F2F2;--white:#FFF;}
+*{margin:0;padding:0;box-sizing:border-box;}
+body{background:var(--bg);font-family:'DM Sans',-apple-system,sans-serif;color:var(--body-text);line-height:1.6;}
+.site-header{background:var(--dark);border-bottom:3px solid var(--accent);padding:0;}
+.site-header-inner{max-width:1100px;margin:0 auto;padding:20px 40px;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:12px;}
+.site-header-brand{display:flex;flex-direction:column;}
+.site-header-org{font-size:10px;font-weight:700;letter-spacing:3px;text-transform:uppercase;color:rgba(255,255,255,0.4);margin-bottom:3px;}
+.site-header-title{font-family:'Fraunces',serif;font-size:26px;font-weight:700;color:var(--white);line-height:1.1;}
+.site-header-tag{font-size:13px;color:var(--accent);margin-top:2px;}
+.issue-meta{display:flex;gap:24px;flex-wrap:wrap;}
+.issue-meta-item{display:flex;flex-direction:column;align-items:flex-end;}
+.issue-meta-label{font-size:9px;font-weight:700;letter-spacing:0.15em;text-transform:uppercase;color:rgba(255,255,255,0.35);}
+.issue-meta-value{font-size:14px;font-weight:500;color:var(--white);}
+.page-body{max-width:1100px;margin:0 auto;padding:40px 40px;}
+.content-grid{display:grid;grid-template-columns:1fr 300px;gap:32px;align-items:start;}
+.main-col{}
+.section-bar{padding:8px 0;font-size:11px;font-weight:700;letter-spacing:0.1em;text-transform:uppercase;color:var(--accent);border-bottom:2px solid var(--accent);margin-bottom:20px;}
+.section-bar.dark-bar{color:var(--dark);border-bottom-color:var(--dark);}
+.summary-block{background:var(--white);border-left:4px solid var(--accent);padding:20px 24px;margin-bottom:32px;font-size:15px;line-height:1.7;color:var(--body-text);box-shadow:0 1px 6px rgba(0,0,0,0.05);}
+.incident{background:var(--white);padding:28px;margin-bottom:20px;box-shadow:0 1px 6px rgba(0,0,0,0.05);border-top:3px solid var(--light);}
+.incident:hover{border-top-color:var(--accent);}
+.incident-header{display:flex;gap:14px;margin-bottom:18px;align-items:flex-start;}
+.incident-num{background:var(--dark);color:var(--white);width:38px;height:38px;border-radius:4px;display:flex;align-items:center;justify-content:center;font-size:18px;font-weight:700;flex-shrink:0;}
+.incident-title{font-size:17px;font-weight:700;color:var(--dark);line-height:1.3;}
+.incident-source{font-size:12px;color:var(--gray);margin-top:3px;}
+.field-label{font-size:10px;font-weight:700;letter-spacing:0.15em;text-transform:uppercase;color:var(--gray);margin-bottom:5px;margin-top:16px;}
+.field-label.red{color:var(--red);}
+.incident-field{font-size:14px;line-height:1.7;color:#444;word-break:break-word;}
+.action-box{background:var(--green-bg);border-left:4px solid var(--green);padding:14px 18px;margin-top:16px;font-size:14px;line-height:1.65;font-weight:600;color:var(--dark);word-break:break-word;}
+.action-label{font-size:10px;font-weight:700;letter-spacing:0.15em;text-transform:uppercase;color:#1E8449;margin-bottom:6px;}
+.workflow-tag{background:#FFF8E1;border-left:4px solid var(--amber);padding:10px 16px;margin-top:10px;font-size:13px;color:#555;line-height:1.5;word-break:break-word;}
+.workflow-label{font-size:10px;font-weight:700;letter-spacing:0.15em;text-transform:uppercase;color:var(--amber);margin-bottom:4px;}
+.sidebar{}
+.sidebar-card{background:var(--white);padding:20px;margin-bottom:20px;box-shadow:0 1px 6px rgba(0,0,0,0.05);}
+.sidebar-card-title{font-size:10px;font-weight:700;letter-spacing:0.15em;text-transform:uppercase;color:var(--accent);border-bottom:2px solid var(--light);padding-bottom:8px;margin-bottom:14px;}
+.policy-item{padding-left:12px;border-left:2px solid var(--gray-lt);margin-bottom:14px;font-size:13px;line-height:1.6;color:#444;}
+.policy-item:last-child{margin-bottom:0;}
+.policy-action{font-size:12px;font-weight:600;color:var(--dark);margin-top:4px;}
+.tool-row{display:flex;gap:12px;margin-bottom:12px;font-size:13px;align-items:flex-start;}
+.tool-row:last-child{margin-bottom:0;}
+.tool-name{font-weight:700;color:var(--dark);min-width:110px;max-width:110px;flex-shrink:0;line-height:1.5;}
+.tool-change{color:#555;line-height:1.6;word-break:break-word;overflow-wrap:break-word;flex:1;}
+.stat-card{background:var(--dark);padding:24px;text-align:center;margin-bottom:20px;overflow:hidden;}
+.stat-number{font-family:'Fraunces',serif;font-size:36px;font-weight:700;color:var(--white);line-height:1.2;word-break:break-word;overflow-wrap:break-word;}
+.stat-label{font-size:9px;font-weight:700;letter-spacing:0.2em;text-transform:uppercase;color:rgba(255,255,255,0.4);margin:6px 0 10px;}
+.stat-context{font-size:13px;color:rgba(255,255,255,0.7);line-height:1.6;}
+.stat-source{font-size:11px;color:rgba(255,255,255,0.35);margin-top:10px;padding-top:10px;border-top:1px solid rgba(255,255,255,0.1);}
+.references-section{background:var(--white);padding:24px 28px;margin-top:8px;box-shadow:0 1px 6px rgba(0,0,0,0.05);}
+.ref-incident-title{font-size:12px;font-weight:700;color:#555;margin-bottom:4px;margin-top:14px;}
+.ref-incident-title:first-child{margin-top:0;}
+.ref-citation{font-size:12px;color:#777;padding-left:12px;line-height:1.6;margin-bottom:2px;word-break:break-word;}
+.ref-citation a{color:var(--accent);}
+.site-footer{background:var(--dark);margin-top:60px;padding:40px 40px;}
+.site-footer-inner{max-width:1100px;margin:0 auto;display:grid;grid-template-columns:2fr 1fr;gap:40px;align-items:start;}
+.footer-about{font-size:13px;color:rgba(255,255,255,0.5);line-height:1.7;}
+.footer-about strong{color:var(--white);}
+.footer-upsell{font-size:13px;line-height:1.7;color:rgba(255,255,255,0.5);}
+.footer-upsell strong{color:var(--white);display:block;margin-bottom:6px;}
+.footer-bottom{max-width:1100px;margin:24px auto 0;padding-top:20px;border-top:1px solid rgba(255,255,255,0.1);display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:8px;}
+.footer-legal{font-size:11px;color:rgba(255,255,255,0.3);}
+.footer-legal a{color:var(--accent);text-decoration:none;}
+@media(max-width:900px){
+  .content-grid{grid-template-columns:1fr;}
+  .site-footer-inner{grid-template-columns:1fr;}
+  .site-header-inner,.page-body,.site-footer{padding-left:20px;padding-right:20px;}
+  .issue-meta{justify-content:flex-start;}
+  .issue-meta-item{align-items:flex-start;}
+}
+</style>
+</head>
+<body>
+
+<header class="site-header">
+  <div class="site-header-inner">
+    <div class="site-header-brand">
+      <div class="site-header-org">The Language Firm</div>
+      <div class="site-header-title">Weekly Incident Bulletin</div>
+      <div class="site-header-tag">K-12 Technology &amp; AI Risk Intelligence</div>
+    </div>
+    <div class="issue-meta">
+      <div class="issue-meta-item"><span class="issue-meta-label">Issue</span><span class="issue-meta-value">011</span></div>
+      <div class="issue-meta-item"><span class="issue-meta-label">Week of</span><span class="issue-meta-value">Week of May 11, 2026</span></div>
+      <div class="issue-meta-item"><span class="issue-meta-label">Incidents</span><span class="issue-meta-value">4</span></div>
+    </div>
+  </div>
+</header>
+
+<div class="page-body">
+  <div class="content-grid">
+    <div class="main-col">
+      <div class="section-bar">This Week's Summary</div>
+      <div class="summary-block">This week produced four incidents that together expose the compliance gap between how districts describe their data governance and what auditors actually find. A New York State comptroller audit of NYC schools found 141 data security incidents between January 2023 and February 2025, and determined that the city does not know what student data third-party vendors have, cannot identify who to notify when a breach occurs, and lacks a clear inventory of which electronic systems individual schools use. That audit arrived the same week the city released its preliminary AI guidelines, which frame a traffic-light use structure but leave homework use, grade-level differentiation, and algorithmic bias review to a June playbook that does not yet exist. Meanwhile, the U.S. Department of Education's Office for Civil Rights opened a disability discrimination investigation into Houston ISD after the district announced plans to consolidate special education services and move roughly 5,000 students with disabilities to centralized hub campuses for the 2026-27 school year, a decision parents say was made without proper IEP team involvement. And the Radnor High School deepfake story, now four months old, reached a community forum stage in King of Prussia on May 8, with mothers and victims testifying publicly about what happened and what schools still have not done.</div>
+
+      <div class="section-bar dark-bar">Incidents</div>
+
+      <!-- INCIDENT 1: NYC state comptroller audit -->
+      <div class="incident" style="border-top:3px solid var(--red);">
+        <div class="incident-header">
+          <div class="incident-num" style="background:var(--red);">1</div>
+          <div class="incident-title-block">
+            <div style="font-size:10px;font-weight:700;letter-spacing:0.15em;text-transform:uppercase;color:var(--red);margin-bottom:4px;">Breaking</div>
+            <div class="incident-title">New York State comptroller audit finds 141 data security incidents at NYC schools over two years and determines the district does not know what student data third-party vendors hold or who to notify when a breach occurs</div>
+            <div class="incident-source">Chalkbeat, Gothamist &middot; May 4-9, 2026</div>
+          </div>
+        </div>
+        <div class="field-label">What happened</div>
+        <div class="incident-field">The New York State Comptroller's Office released an audit of New York City Public Schools' data governance practices covering January 2023 through February 2025. The audit identified 141 data security incidents involving breaches of student and staff information from both third-party vendors and internal Education Department systems during that period. Tina Kim, head of the comptroller's state government accountability division, stated: "New York City Public Schools does not have a clear understanding of what third party actually has access to the students' information. If there is a breach at one of these different vendors, they don't know who to notify, or what school to go to." The audit found that the district lacks a comprehensive inventory of which electronic reporting systems individual schools use beyond the two known central systems. Chancellor Kamar Samuels acknowledged two recent data privacy issues in a statement, one of which involved Canvas. The state audit's findings land directly alongside the Canvas breach disclosed last week and the city's release of preliminary AI guidelines, all in the same week, exposing a structural gap: the city is expanding AI tool deployment without having resolved the vendor accountability and breach identification problems that the audit found.</div>
+        <div class="field-label">Who's affected</div>
+        <div class="incident-field">New York City's roughly 800,000 students and the families and staff whose data was involved in the 141 incidents identified. Every district that relies on third-party edtech platforms should treat this audit as a mirror: if NYC cannot produce a vendor inventory or identify notification contacts after a breach, it is likely that most districts cannot either. The audit's findings are not unique to a large system. They describe the default state of a district that has not built the inventory and contact infrastructure before it needs it.</div>
+        <div class="field-label red">Compliance Exposure</div>
+        <div class="incident-field">The audit findings are a precise description of FERPA vendor oversight failure. Under FERPA, the school official exception permits vendors to access student data only for specified purposes, and the district remains responsible for that data. A district that cannot identify what data a vendor holds, cannot identify who at the vendor to contact after a breach, and does not know which systems individual schools are using cannot demonstrate that it is exercising the oversight FERPA requires. Federal monitors would ask exactly the questions the comptroller asked: What is your vendor inventory? Who is your contact at each vendor for breach notification? What systems are in use at the school level that your central office does not track?</div>
+        <div class="action-box">
+          <div class="action-label">Recommended Action</div>
+          This week, ask your district's technology department to produce a current list of every third-party vendor that accesses student data, the specific data categories each one accesses, and the name and contact information of the person at each vendor responsible for breach notification. If that list does not exist or is not current, building it is the most important data governance action your district can take before the end of the school year. The NYC audit found that 141 incidents occurred over two years in a system that did not have this infrastructure. Your district does not need to wait for an audit to find the same gap.
+        </div>
+        <div class="workflow-tag"><div class="workflow-label">Workflow Impact</div>Student Data Privacy: Build or update a current vendor inventory with data category and breach notification contact for every third-party platform accessing student data</div>
+      </div>
+
+      <!-- INCIDENT 2: NYC AI guidelines traffic light -->
+      <div class="incident">
+        <div class="incident-header">
+          <div class="incident-num">2</div>
+          <div class="incident-title-block">
+            <div class="incident-title">NYC releases preliminary AI guidelines using a traffic-light framework, prohibiting AI for grading and IEP decisions, but leaving homework use, grade-level differentiation, and algorithmic bias review to a June playbook that does not yet exist</div>
+            <div class="incident-source">NYC Public Schools, Chalkbeat, The 74 &middot; March 24, 2026 (released); May 8, 2026 (public comment closed)</div>
+          </div>
+        </div>
+        <div class="field-label">What happened</div>
+        <div class="incident-field">New York City Public Schools released its preliminary AI guidance in March 2026, with a 45-day public comment period that closed May 8. The guidance uses a traffic-light framework: green light for approved uses such as teacher lesson planning and drafting non-critical communications; yellow light for uses requiring significant adult oversight, including using AI to find trends in student data, generating translations for bilingual learners, and adapting materials for students with disabilities; and red light for prohibited uses. The red-light prohibitions, which the city says will not change in the final June playbook, include using AI for grading, developing IEPs or 504 plans, discipline, counseling, and crisis intervention. The guidance requires that student personally identifiable information never be entered into unapproved tools and prohibits using student data to train AI models or generate revenue. Chancellor Kamar Samuels stated that AI is here and that the city's responsibility is to put strong systemwide safeguards in place. More than 6,000 public comments were submitted. The guidance leaves several questions unresolved for the June playbook, including how and whether students may use AI for homework, grade-band-specific use parameters, and how to evaluate algorithmic bias in AI tools. The advisory council that shaped the guidance includes representatives from Google and OpenAI, companies that hold or seek contracts with the district's 800,000 students.</div>
+        <div class="field-label">Who's affected</div>
+        <div class="incident-field">NYC's 800,000 students and all districts nationally that have not yet adopted an AI use policy. The NYC framework is the first substantive AI decision structure from the largest school district in the country. The red-light prohibitions, particularly the explicit ban on AI for IEP development, grading, and discipline, are the most actionable reference point for other districts. If NYC's policy says these uses are prohibited, districts that are permitting them need a documented rationale or they need to stop.</div>
+        <div class="field-label red">Compliance Exposure</div>
+        <div class="incident-field">The red-light prohibitions in the NYC framework track directly to federal compliance requirements that apply everywhere. Using AI to develop or modify an IEP without a qualified professional's independent judgment may violate IDEA's requirement that IEP decisions be made by an appropriately constituted team based on individualized assessment. Using AI to make or heavily influence a disciplinary decision without human review may create due process exposure. Districts that have not addressed these use cases in writing are relying on individual teacher and administrator judgment, which is not a documented policy and cannot be produced to an auditor. Federal monitors would ask: Does your district's AI use policy address IEP development and discipline? Have teachers been trained on which AI uses are prohibited?</div>
+        <div class="action-box"><div class="action-label">Recommended Action</div>This week, review your district's AI use policy against the NYC red-light list. Your policy should explicitly address whether AI may be used in IEP development, grading, discipline, counseling, and crisis intervention. If your policy is silent on any of these, add explicit language before the end of the school year. Do not wait for NYC's June playbook or your state's guidance. The federal compliance requirements that make these uses risky are already in effect. NYC's framework makes the risk visible. Your district's policy should close the gap now.</div>
+        <div class="workflow-tag"><div class="workflow-label">Workflow Impact</div>Compliance &amp; Reporting: Confirm district AI use policy explicitly prohibits AI for IEP development, grading, and discipline, consistent with NYC's published red-light standard and underlying federal requirements</div>
+      </div>
+
+      <!-- INCIDENT 3: HISD OCR investigation -->
+      <div class="incident">
+        <div class="incident-header">
+          <div class="incident-num">3</div>
+          <div class="incident-title-block">
+            <div class="incident-title">U.S. Department of Education Office for Civil Rights opens disability discrimination investigation into Houston ISD after district announces plans to move roughly 5,000 students with disabilities to centralized hub campuses without IEP team involvement</div>
+            <div class="incident-source">U.S. Department of Education, Texas Tribune, Houston Public Media &middot; May 8, 2026</div>
+          </div>
+        </div>
+        <div class="field-label">What happened</div>
+        <div class="incident-field">On May 8, 2026, the U.S. Department of Education's Office for Civil Rights opened a disability discrimination investigation into Houston Independent School District to determine whether the district violates Section 504 of the Rehabilitation Act and Title II of the Americans with Disabilities Act. The investigation was triggered by HISD's announcement that it plans to centralize certain special education services beginning in the 2026-27 school year, consolidating programs at hub campuses and requiring some students with disabilities to transfer from their neighborhood school. The OCR press release stated that public schools are required, to the maximum extent appropriate, to ensure that children with disabilities are educated alongside their nondisabled peers and to follow specific procedures when making placement decisions. HISD serves more than 21,000 students receiving special education services. Of those, roughly 5,000 are primarily served in self-contained settings and are the population the reorganization would affect. Parents told reporters they were notified of campus reassignments by phone call, without prior IEP team consultation. Mireille Patman, whose eighth-grade child is enrolled in the special education program at Frank Black Middle School, said she learned about her child's placement for next school year in a phone call from the district. HISD said in a statement that all special education updates focus on increasing access to services in the least restrictive environment and improving outcomes. The district is under state control by the Texas Education Agency following chronic poor academic performance. A 2020 TEA investigation found HISD in systemic and widespread noncompliance with special education law. Assistant Secretary for Civil Rights Kimberly Richey stated that schools cannot exclude students with disabilities simply because of their disability status and that placement decisions must be made individually, based on each student's needs, rather than by blanket policies that segregate students by disability category.</div>
+        <div class="field-label">Who's affected</div>
+        <div class="incident-field">Houston ISD students receiving special education services directly. Every district considering any reorganization of special education delivery, including consolidating programs, closing self-contained classrooms, or shifting service locations, should treat this investigation as a compliance reference. The OCR's basis for opening the investigation applies nationally: placement decisions must be individualized, made through the IEP process, and consistent with least restrictive environment requirements. A district-level program reorganization that changes where students receive services without individual IEP team review is the specific fact pattern OCR is investigating.</div>
+        <div class="field-label red">Compliance Exposure</div>
+        <div class="incident-field">IDEA requires that any change in a student's educational placement be made by the student's IEP team, with parental participation, based on the student's individual needs. A blanket programmatic decision to move students with disabilities to hub campuses, without convening IEP teams for each affected student, is not a placement decision process that IDEA recognizes. Districts that are restructuring special education delivery for budget, staffing, or operational reasons must still run each affected student through the IEP process individually before changing placement. Federal monitors would ask: For each student affected by a program reorganization, was an IEP team meeting convened? Was the parent notified in writing and given the opportunity to participate? Was the least restrictive environment analysis documented? Were prior written notices issued for each placement change?</div>
+        <div class="action-box"><div class="action-label">Recommended Action</div>If your district is planning any reorganization of special education service delivery for 2026-27, including consolidation of programs, changes to service locations, or staffing restructuring that affects where students receive services, confirm this week with your special education director that each affected student's IEP team will be convened before any placement change is made. The HISD investigation makes the compliance standard explicit: you cannot make a blanket program decision and notify families by phone. Each change requires an IEP team meeting, parental participation, a least restrictive environment analysis, and a prior written notice. Document every step.</div>
+        <div class="workflow-tag"><div class="workflow-label">Workflow Impact</div>Compliance &amp; Reporting: Confirm that any 2026-27 special education program reorganization includes individual IEP team meetings, parental participation, LRE documentation, and prior written notice for every affected student</div>
+      </div>
+
+      <!-- INCIDENT 4: Radnor deepfake community forum -->
+      <div class="incident">
+        <div class="incident-header">
+          <div class="incident-num">4</div>
+          <div class="incident-title-block">
+            <div class="incident-title">Radnor High School deepfake victims and mothers testify at King of Prussia community forum four months after the incident, as the case becomes a sustained public accountability event for K-12 response standards</div>
+            <div class="incident-source">6ABC &middot; May 8, 2026</div>
+          </div>
+        </div>
+        <div class="field-label">What happened</div>
+        <div class="incident-field">On May 8, 2026, mothers and victims from the Radnor High School AI deepfake incident testified at a community forum in King of Prussia, Pennsylvania, organized to raise awareness about AI deepfakes. The original incident, in which a male classmate used AI to generate sexualized images of five ninth-grade female students, was first reported in December 2025. Since then, the Radnor parents have met with Governor Josh Shapiro and Attorney General Dave Sunday in March, and Massachusetts issued formal guidance in April directing schools to investigate deepfakes as crimes. The King of Prussia forum is the latest in a sustained sequence of public accountability events that has now run for nearly five months. The parents' continuing public testimony reflects a consistent finding: the school's initial response was inadequate, and the institutional knowledge of how to handle AI-generated sexual content involving students was absent. Audrey Greenberg, whose daughter was victimized at Radnor, told attendees: "It's an acute event that creates trauma immediately. It's incredibly humiliating." The forum also included victims from Lancaster Country Day School. Attorney General Dave Sunday, who attended, reminded families to contact police if they believe they have been targeted. Reporting from 6ABC and the Philadelphia Inquirer confirmed that Radnor Township School District passed updated policy changes in late April 2026 explicitly banning the use of AI to create sexualized images of another person, though Greenberg stated the policies identify the issue but do not yet ensure accountability or protection.</div>
+        <div class="field-label">Who's affected</div>
+        <div class="incident-field">All districts that have not yet updated their Title IX policy and acceptable use policy to explicitly address AI-generated sexual content. The Radnor case has now been in public view for five months, with gubernatorial attention, state-level guidance from Massachusetts, and continuing community pressure. A district that still has not updated its policies is operating with a known, documented, publicly discussed gap. Any deepfake incident at that district will be evaluated against a standard that has been publicly articulated for months.</div>
+        <div class="field-label red">Compliance Exposure</div>
+        <div class="incident-field">Title IX requires districts to respond promptly and equitably to reports of sexual harassment, including harassment involving AI-generated sexual content. Massachusetts guidance has explicitly stated that deepfake creation may trigger mandatory reporting obligations. The longer the Radnor case remains in public view without districts acting, the more difficult it becomes to argue that a district lacked notice of the issue. Federal monitors reviewing Title IX compliance would ask: Does your harassment policy explicitly address AI-generated sexual content? What is your documented investigation protocol? When were your Title IX coordinator and counseling staff last trained on AI deepfake response? Were any incidents reported at your district in the 2025-26 school year that involved AI-generated content, and if so, what was the response?</div>
+        <div class="action-box"><div class="action-label">Recommended Action</div>If your district has not yet updated its Title IX policy and acceptable use policy to explicitly address AI-generated sexual content involving students, do it before the end of this school year. The Radnor case has been in public view since December. Massachusetts issued state guidance in April. The standard is documented. Update your policies, train your Title IX coordinator and counselors on the mandatory reporting dimension, and make sure your administrators know that a deepfake complaint is not a discipline referral. It is a potential crime requiring a structured, documented response. Put the protocol in writing before your district's version of this incident arrives.</div>
+        <div class="workflow-tag"><div class="workflow-label">Workflow Impact</div>Compliance &amp; Reporting: Update Title IX policy and acceptable use policy to address AI-generated sexual content, and train Title IX coordinator and counselors on mandatory reporting obligations before end of school year</div>
+      </div>
+
+      <div class="section-bar" style="margin-top:32px;">References</div>
+      <div class="references-section">
+        <div class="ref-incident-title">New York State comptroller audit finds 141 data security incidents and vendor oversight gaps at NYC schools</div>
+        <div class="ref-citation">[1] Chalkbeat. &ldquo;As NYC pushes AI in schools, audit finds data breaches, gaps in city data privacy policies.&rdquo; May 4, 2026. <a href="https://www.chalkbeat.org/newyork/2026/05/04/state-comptroller-audit-finds-student-data-privacy-gaps-in-nyc-schools/">https://www.chalkbeat.org/newyork/2026/05/04/state-comptroller-audit-finds-student-data-privacy-gaps-in-nyc-schools/</a></div>
+        <div class="ref-citation">[2] Gothamist. &ldquo;State audit finds gaps in NYC schools' oversight of tech and student data.&rdquo; May 9, 2026. <a href="https://gothamist.com/news/state-audit-finds-gaps-in-nyc-schools-oversight-of-tech-and-student-data">https://gothamist.com/news/state-audit-finds-gaps-in-nyc-schools-oversight-of-tech-and-student-data</a></div>
+
+        <div class="ref-incident-title">NYC releases preliminary AI guidelines with traffic-light framework</div>
+        <div class="ref-citation">[1] NYC Public Schools. Guidance on Artificial Intelligence. Released March 24, 2026. Public comment closed May 8, 2026. <a href="https://www.schools.nyc.gov/about-us/vision-and-mission/guidance-on-artificial-intelligence-full">https://www.schools.nyc.gov/about-us/vision-and-mission/guidance-on-artificial-intelligence-full</a></div>
+        <div class="ref-citation">[2] Chalkbeat. &ldquo;What NYC's new AI school rules say, and what still remains unclear.&rdquo; March 24, 2026. <a href="https://www.chalkbeat.org/newyork/2026/03/24/preliminary-ai-policy-nyc-schools/">https://www.chalkbeat.org/newyork/2026/03/24/preliminary-ai-policy-nyc-schools/</a></div>
+
+        <div class="ref-incident-title">U.S. Department of Education OCR opens disability discrimination investigation into Houston ISD</div>
+        <div class="ref-citation">[1] U.S. Department of Education. &ldquo;U.S. Department of Education Office for Civil Rights Opens Disability Discrimination Investigation into Texas School District.&rdquo; May 8, 2026. <a href="https://www.ed.gov/about/news/press-release/us-department-of-education-office-civil-rights-opens-disability-discrimination-investigation-texas-school-district-0">https://www.ed.gov/about/news/press-release/us-department-of-education-office-civil-rights-opens-disability-discrimination-investigation-texas-school-district-0</a></div>
+        <div class="ref-citation">[2] Texas Tribune. &ldquo;HISD under civil rights investigation for plans to separate children with disabilities.&rdquo; May 8, 2026. <a href="https://www.texastribune.org/2026/05/08/houston-schools-special-education-investigation/">https://www.texastribune.org/2026/05/08/houston-schools-special-education-investigation/</a></div>
+        <div class="ref-citation">[3] Houston Public Media. &ldquo;HISD under federal investigation over plans to restructure special education services.&rdquo; May 8, 2026. <a href="https://www.houstonpublicmedia.org/articles/education/2026/05/08/551421/hisd-special-education-investigation-houston-schools-civil-rights/">https://www.houstonpublicmedia.org/articles/education/2026/05/08/551421/hisd-special-education-investigation-houston-schools-civil-rights/</a></div>
+
+        <div class="ref-incident-title">Radnor deepfake victims testify at King of Prussia community forum</div>
+        <div class="ref-citation">[1] 6ABC. &ldquo;Mothers, victims raise awareness about AI deepfakes at community forum in KOP.&rdquo; May 8, 2026. <a href="https://6abc.com/post/mothers-victims-raise-awareness-ai-deepfakes-community-forum-king-prussia-pa/19061286/">https://6abc.com/post/mothers-victims-raise-awareness-ai-deepfakes-community-forum-king-prussia-pa/19061286/</a></div>
+        <div class="ref-citation">[2] Philadelphia Inquirer. &ldquo;Radnor school district is looking to enlist outside experts to prepare for future deepfake incidents.&rdquo; May 6, 2026. <a href="https://www.inquirer.com/education/radnor-school-district-ai-deepfake-policy-20260506.html">https://www.inquirer.com/education/radnor-school-district-ai-deepfake-policy-20260506.html</a></div>
+      </div>
+    </div>
+
+    <!-- SIDEBAR -->
+    <div class="sidebar">
+      <div class="stat-card">
+        <div class="stat-number">141</div>
+        <div class="stat-label">By the Numbers</div>
+        <div class="stat-context">Data security incidents involving student and staff information found by the New York State Comptroller's audit of NYC schools, covering January 2023 through February 2025. The audit determined the district does not know what student data third-party vendors hold and cannot identify who to notify when a breach occurs.</div>
+        <div class="stat-source">New York State Comptroller, May 2026</div>
+      </div>
+
+      <div class="sidebar-card">
+        <div class="sidebar-card-title">Policy Watch</div>
+        <div class="policy-item">
+          <div>NYC's preliminary AI guidelines closed public comment on May 8 with more than 6,000 submissions. The final June playbook is expected to add grade-band-specific guidance, an algorithmic bias review process, and homework use parameters. Until the June playbook is released, the traffic-light framework's red-light prohibitions, which cover IEP development, grading, and discipline, are the operative standard. These are not NYC-specific requirements. They reflect federal compliance obligations that apply in every district.</div>
+          <div class="policy-action">All districts: Use NYC's red-light list as a minimum standard for your own AI use policy. Prohibit AI for IEP development, grading, and discipline in writing before the end of the school year.</div>
+        </div>
+        <div class="policy-item">
+          <div>The HISD OCR investigation makes explicit what IDEA has always required: districts cannot make blanket program decisions that change where students with disabilities receive services without convening individual IEP teams. Any district planning a special education reorganization for 2026-27 should treat the HISD investigation as a compliance checklist for what they must document before making any placement change.</div>
+          <div class="policy-action">Districts planning special education restructuring: Confirm that IEP team meetings, parental participation, LRE documentation, and prior written notices are in place for every affected student before the first day of 2026-27.</div>
+        </div>
+      </div>
+
+      <div class="sidebar-card">
+        <div class="sidebar-card-title">Tool Alerts</div>
+        <div class="tool-row">
+          <span class="tool-name">Canvas LMS (Instructure)</span>
+          <span class="tool-change">The NYC state comptroller audit cited the Canvas breach as one of two recent data privacy issues acknowledged by Chancellor Samuels. Districts using Canvas that have not yet contacted Instructure for institution-specific breach confirmation should do so this week.</span>
+        </div>
+        <div class="tool-row">
+          <span class="tool-name">All AI tools (IEP and discipline use)</span>
+          <span class="tool-change">NYC's red-light prohibitions explicitly ban AI for IEP development, 504 plans, grading, discipline, and counseling. Districts using any AI tool in these contexts without a documented policy basis are operating in the highest-risk zone identified by the nation's largest district.</span>
+        </div>
+      </div>
+
+      <div class="sidebar-card" style="background:#1B3A4B;">
+        <div class="sidebar-card-title" style="color:#2E75B6;border-bottom-color:#2E75B6;">Want More?</div>
+        <div style="font-size:13px;color:rgba(255,255,255,0.6);line-height:1.7;">
+          <strong style="color:#fff;display:block;margin-bottom:6px;">The Tool Vault</strong>
+          Independent AI and cybersecurity intelligence for educators and school system leaders. Always accessible. Always free.<br><br>
+          <strong style="color:rgba(255,255,255,0.85);">The Weekly Incident Bulletin</strong> surfaces incidents each Monday that create real audit risk, explains what a federal monitor would look for, and tells you exactly what to do. Free for K-12 administrators and compliance leaders.<br><br>
+          <strong style="color:rgba(255,255,255,0.85);">The Vendor Language Briefing</strong> is a free weekly forensic read on the exact language inside the contracts, privacy policies, and federal compliance documents that K-12 institutions sign with their vendors.<br><br>
+          <strong style="color:rgba(255,255,255,0.85);">The Federal Findings Digest</strong> is the monthly roundup of federal AI policy movement, published by The Language Firm.<br><br>
+          <a href="https://languagefirm.org/toolvault" style="display:inline-block;background:#2E75B6;color:#fff;font-size:11px;font-weight:700;letter-spacing:0.08em;text-transform:uppercase;padding:8px 16px;text-decoration:none;margin-top:4px;">Enter the Vault &rarr;</a>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<footer class="site-footer">
+  <div class="site-footer-inner">
+    <div class="footer-about">
+      <strong>The Weekly Incident Bulletin</strong> is published every Monday by The Language Firm. K-12 AI and technology incidents with compliance analysis, recommended actions, and workflow impact tags. Built for administrators, tech coordinators, and compliance leaders.
+    </div>
+    <div class="footer-upsell">
+      <strong>Questions?</strong>
+      <a href="mailto:jcs@thelanguagefirm.org" style="color:#2E75B6;">jcs@thelanguagefirm.org</a>
+    </div>
+  </div>
+  <div class="footer-bottom">
+    <div class="footer-legal"><a href="https://languagefirm.org">languagefirm.org</a> &nbsp;&middot;&nbsp; &copy; The Language Firm. All rights reserved.</div>
+  </div>
+</footer>
+
+</body>
+</html>
